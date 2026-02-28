@@ -1,0 +1,5 @@
+/* Project-specific additions, reusing main style */
+@import url('style.css');
+
+.projects .intro{margin-bottom:12px}
+.projects .grid .card{min-height:120px}
