@@ -4,7 +4,7 @@ Este é um site pessoal desenvolvido com **HTML, CSS e JavaScript**.
 
 ## Acesse o site
 
-https://saviodebug.github.io/personal-website/
+https://saviodebug.github.io
 
 ## Tecnologias usadas
 - HTML5
