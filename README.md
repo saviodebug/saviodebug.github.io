@@ -39,14 +39,6 @@ assets/
 - Metadados para SEO e compartilhamento
 - Página 404 personalizada
 
-## Rodando localmente
-
-```bash
-python3 -m http.server 4173
-```
-
-Depois acesse `http://127.0.0.1:4173`.
-
 ## Autor
 
 Sávio Junior
