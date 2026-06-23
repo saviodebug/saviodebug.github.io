@@ -3,83 +3,70 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>Sobre • Sávio Junior</title>
-        <link rel="stylesheet" href="src/css/style.css" />
-        <script src="src/js/main.js" defer></script> 
+        <meta name="description" content="Portfólio de Sávio Junior, focado em desenvolvimento back-end, Java, APIs, Linux e ferramentas de desenvolvimento." />
+        <meta property="og:title" content="Sávio Junior | Desenvolvimento Back-End" />
+        <meta property="og:description" content="Projetos, ferramentas e trajetória técnica em desenvolvimento back-end." />
+        <meta property="og:image" content="https://saviodebug.github.io/assets/images/junin.jpeg" />
+        <meta property="og:type" content="website" />
+        <title>Sávio Junior | Desenvolvimento Back-End</title>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="stylesheet" href="/assets/css/style.css" />
+        <script src="/assets/js/main.js" defer></script> 
         
     </head>
     <body>
         <header>
             <div class="container">
-                <div class="brand">
-                    <img src="src/imagens/junin.jpeg" alt="Sávio" />
-                    <div>
-                        <h1>Sávio Junior</h1>
-                        <div class="muted">Estudante de Ciência da Computação • Back-End</div>
-                    </div>
-                </div>
+                <a class="brand brand-code" href="/" aria-label="Sávio Junior"><span>&lt; Sávio <strong>Dev</strong> /&gt;</span></a>
                 <nav class="nav">
-                    <a href="index.html">Sobre</a>
-                    <a href="project.html">Portfólio</a>
-                    <a href="contact.html">Contatos</a>
+                    <a href="/" aria-current="page">Sobre</a>
+                    <a href="/skills/">Habilidades</a>
+                    <a href="/project/">Portfólio</a>
+                    <a href="/contact/">Contatos</a>
                 </nav>
-                <a href="index-en.html" class="language-switch"><img src="https://flagcdn.com/us.svg" width="23"></a>
+                <a href="/en/" class="language-switch"><img src="https://flagcdn.com/us.svg" alt="English" width="23" height="17"></a>
                 <button class="burger" aria-label="Abrir menu"><span></span></button>
             </div>
         </header>
 
         <main class="container main-spacer">
-            <section class="hero">
+            <section class="hero hero-center">
                 <div class="intro">
-                    <h2>Olá, sou Sávio, desenvolvedor Back-End.</h2>
-                    <p class="lead">Faço backend com foco em aprendizado contínuo. Este site mostra projetos e contatos, tudo em um layout fluido e moderno.</p>
+                    <p class="hero-kicker">Olá, eu sou</p>
+                    <h2 class="hero-name">Sávio Junior</h2>
+                    <p class="hero-role">Desenvolvedor Back-End</p>
+                    <div class="hero-divider" aria-hidden="true"></div>
+                    <p class="lead">Foco em Java, APIs, bancos de dados, Linux e organização de serviços. Uso o portfólio para mostrar projetos, ferramentas e evolução técnica de forma objetiva.</p>
                     <div class="badges">
-                        <div class="badge">Back-End</div>
                         <div class="badge">Java</div>
-                        <div class="badge">Computer Science</div>
+                        <div class="badge">Back-End</div>
+                        <div class="badge">Omarchy Linux</div>
+                        <div class="badge">IntelliJ IDEA</div>
                     </div>
-
-                    <section class="projects" aria-label="Sobre mim">
-                        <h3 style="margin-top:22px">Quem eu sou</h3>
-                        <p class="muted">Meu nome é Sávio, nascido em Florianópolis. Estudo Ciência da Computação na Univali e busco oportunidades de estágio enquanto aprimoro minhas habilidades.</p>
-                    </section>
                 </div>
-
-                <aside class="hero-right">
-                    <div class="blob" aria-hidden="true"></div>
-                    <div class="profile-card">
-                        <div style="display:flex;gap:12px;align-items:center">
-                            <img src="src/imagens/junin.jpeg" alt="Sávio" />
-                            <div>
-                                <h3>Sávio Junior</h3>
-                                <p class="muted">Estudante de Ciência da Computação • Back-End</p>
-                            </div>
-                        </div>
-                        <p style="margin-top:12px;font-size:14px;color:var(--muted)">Faço projetos que priorizam clareza, performance e experiências fluidas. Veja o portfólio para demonstrações técnicas.</p>
-                    </div>
-                </aside>
             </section>
 
-            <section class="projects" aria-label="Projetos">
-                <h3>Projetos</h3>
+            <section class="projects" aria-label="Perfil técnico">
+                <h2>Perfil técnico</h2>
+                <p class="section-copy">Curso Ciência da Computação na Univali e direciono meus estudos para back-end, estrutura de APIs, banco de dados, Java e ambiente Linux.</p>
                 <div class="grid">
                     <a class="card" href="https://github.com/saviodebug/ConfereAi" target="_blank" rel="noreferrer">
                         <h4>ConfereAí</h4>
-                        <p class="muted">Extensão Manifest V3 para apoiar análise de sinais de risco em notícias, prints e textos políticos, usando API Node.js, Supabase, OCR local e Gemini opcional.</p>
+                        <p class="muted">Extensão com API Node.js, Supabase, OCR local e Gemini opcional para apoiar análise de sinais de risco em notícias e prints.</p>
                     </a>
                     <article class="card" tabindex="0">
-                        <h4>Site Pessoal</h4>
-                        <p class="muted">Portfólio responsivo com HTML, CSS e JavaScript, navegação em português e inglês, cards interativos e contatos organizados.</p>
+                        <h4>Ambiente de desenvolvimento</h4>
+                        <p class="muted">Fluxo baseado em Omarchy Linux, Neovim, IntelliJ IDEA, CLion e VS Code, mantendo Windows 11 como ambiente secundário.</p>
                     </article>
                     <article class="card" tabindex="0">
                         <h4>Back-End e APIs</h4>
-                        <p class="muted">Estudos e projetos com Node.js, Express, integração com banco de dados, rotas HTTP e organização de serviços para aplicações web.</p>
+                        <p class="muted">Estudos e projetos com Node.js, Express, integração com banco de dados, rotas HTTP e organização de serviços para serviços e APIs.</p>
                     </article>
                 </div>
             </section>
 
             <footer>
-                <p class="muted">Email: busanasavio@gmail.com | Telefone: (11) 98606-3073</p>
+                <p class="muted">© 2026 Sávio Junior. Código sob licença MIT.</p>
             </footer>
         </main>
         

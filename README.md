@@ -1,23 +1,56 @@
-# Site Pessoal
+# Sávio Junior
 
-Este é um site pessoal desenvolvido com **HTML, CSS e JavaScript**.
+Portfólio pessoal full-stack em formato estático, desenvolvido para apresentar perfil técnico, projetos, habilidades, contatos e navegação bilíngue.
 
-## Acesse o site
+## Site
 
 https://saviodebug.github.io
 
-## Tecnologias usadas
+## Stack
+
 - HTML5
 - CSS3
 - JavaScript
+- GitHub Pages
 
-## Sobre o projeto
-Este projeto foi criado como prática de desenvolvimento web. O site utiliza HTML para estrutura, CSS para estilização e JavaScript para interatividade.
+## Estrutura
+
+```text
+index.html
+project/
+skills/
+contact/
+en/
+assets/
+404.html
+```
 
 ## Funcionalidades
+
 - Layout responsivo
-- Estilização com CSS
-- Interações com JavaScript
+- Navegação em português e inglês
+- URLs limpas por página
+- Transições suaves entre páginas
+- Menu adaptado para dispositivos móveis
+- Página de habilidades e ambiente de desenvolvimento
+- Fundo interativo em canvas
+- Cards de projeto com modal de detalhes
+- View Transitions API para navegação mais fluida
+- Metadados para SEO e compartilhamento
+- Página 404 personalizada
+
+## Rodando localmente
+
+```bash
+python3 -m http.server 4173
+```
+
+Depois acesse `http://127.0.0.1:4173`.
 
 ## Autor
+
 Sávio Junior
+
+## Licença
+
+MIT

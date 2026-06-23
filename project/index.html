@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="description" content="Projetos e estudos técnicos de Sávio Junior em back-end, APIs, JavaScript e Java." />
+        <meta property="og:title" content="Projetos | Sávio Junior" />
+        <meta property="og:description" content="Portfólio técnico com projetos de back-end, APIs e serviços e APIs." />
+        <meta property="og:image" content="https://saviodebug.github.io/assets/images/junin.jpeg" />
+        <meta property="og:type" content="website" />
+        <title>Projetos | Sávio Junior</title>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="stylesheet" href="/assets/css/style.css" />
+        <script src="/assets/js/main.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <a class="brand brand-code" href="/" aria-label="Sávio Junior"><span>&lt; Sávio <strong>Dev</strong> /&gt;</span></a>
+                <nav class="nav">
+                    <a href="/">Sobre</a>
+                    <a href="/skills/">Habilidades</a>
+                    <a href="/project/" aria-current="page">Portfólio</a>
+                    <a href="/contact/">Contatos</a>
+                </nav>
+                <a href="/en/project/" class="language-switch"><img src="https://flagcdn.com/us.svg" alt="English" width="23" height="17"></a>
+                <button class="burger" aria-label="Abrir menu"><span></span></button>
+            </div>
+        </header>
+
+        <main class="container main-spacer">
+            <section class="projects">
+                <h2>Projetos em destaque</h2>
+                <p class="section-copy">Projetos organizados para demonstrar integração entre APIs, automações, banco de dados e serviços externos.</p>
+                <div class="project-grid">
+                    <article class="card project-card" tabindex="0">
+                        <div class="project-preview">
+                            <div class="project-badge">API</div>
+                            <span>Confere<strong>Aí</strong></span>
+                        </div>
+                        <div class="project-body">
+                            <h4>ConfereAí</h4>
+                            <p class="muted">Extensão Manifest V3 com API Node.js, Supabase, OCR local e Gemini opcional para apoiar análise de sinais de risco em notícias e prints.</p>
+                            <div class="project-actions">
+                                <button class="button" type="button" data-project-modal="confereai">Detalhes</button>
+                                <a class="button primary" href="https://github.com/saviodebug/ConfereAi" target="_blank" rel="noreferrer">Ver Projeto</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="card project-card" tabindex="0">
+                        <div class="project-preview">
+                            <div class="project-badge">FULL-STACK</div>
+                            <span class="project-brand">&lt; Sávio <strong>Dev</strong> /&gt;</span>
+                        </div>
+                        <div class="project-body">
+                            <h4>Portfólio pessoal full-stack</h4>
+                            <p class="muted">Este site: interface estática, organização de conteúdo, SEO, navegação bilíngue, JavaScript para interações, fundo em canvas e transições entre páginas.</p>
+                            <div class="project-actions">
+                                <button class="button" type="button" data-project-modal="portfolio">Detalhes</button>
+                                <a class="button primary" href="https://github.com/saviodebug/saviodebug.github.io" target="_blank" rel="noreferrer">Ver Projeto</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+            <section class="Cursos">
+                <h2>Cursos em destaque</h2>
+                <div class="grid">
+                    <article class="card" tabindex="0">
+                        <h4>Lógica de Programação</h4>
+                        <p class="muted">Curso em Vídeo, com prática em algoritmos, estruturas condicionais, repetição e fundamentos usados como base para programação em Java.</p>
+                    </article>
+                    <article class="card" tabindex="0">
+                        <h4>Maratona Java</h4>
+                        <p class="muted">DevDojo Academy, com foco em orientação a objetos, coleções, exceções, boas práticas e construção de base sólida para back-end.</p>
+                    </article>
+                    <article class="card" tabindex="0">
+                        <h4>Ciência da Computação</h4>
+                        <p class="muted">Graduação na Univali, estudando fundamentos de computação, desenvolvimento de software, lógica, banco de dados e engenharia de sistemas.</p>
+                    </article>
+                </div>
+            </section>
+
+            <footer>
+                <p class="muted">© 2026 Sávio Junior. Código sob licença MIT.</p>
+            </footer>
+        </main>
+
+        <div class="project-modal" id="project-modal-confereai" hidden>
+            <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="confereai-title">
+                <div class="project-modal-head">
+                    <div>
+                        <span class="badge">API</span>
+                        <h3 id="confereai-title">ConfereAí</h3>
+                        <p class="muted">Extensão para apoiar análise de risco em conteúdos políticos e eleitorais.</p>
+                    </div>
+                    <button class="project-modal-close" type="button" aria-label="Fechar" data-modal-close>×</button>
+                </div>
+                <div class="project-modal-media project-preview"><span>Confere<strong>Aí</strong></span></div>
+                <div class="project-modal-grid">
+                    <div>
+                        <section class="project-modal-section">
+                            <h4>Contexto</h4>
+                            <p class="muted">Projeto criado para analisar textos, notícias e capturas de tela, combinando extensão de navegador, API própria, persistência e serviços de IA/OCR.</p>
+                        </section>
+                        <section class="project-modal-section">
+                            <h4>Funcionalidades</h4>
+                            <ul class="feature-list">
+                                <li>Análise de texto e imagem</li>
+                                <li>OCR local com Tesseract.js</li>
+                                <li>Histórico no Supabase</li>
+                                <li>API Node.js hospedada na Vercel</li>
+                            </ul>
+                        </section>
+                    </div>
+                    <aside>
+                        <div class="project-side-card">
+                            <h4>Links do Projeto</h4>
+                            <a class="button primary" href="https://github.com/saviodebug/ConfereAi" target="_blank" rel="noreferrer">Acessar GitHub</a>
+                        </div>
+                        <div class="project-side-card">
+                            <h4>Tecnologias</h4>
+                            <div class="tech-list"><span>Node.js</span><span>Supabase</span><span>Manifest V3</span><span>Tesseract.js</span><span>Gemini</span></div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-modal" id="project-modal-portfolio" hidden>
+            <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="portfolio-title">
+                <div class="project-modal-head">
+                    <div>
+                        <span class="badge">FULL-STACK</span>
+                        <h3 id="portfolio-title">Portfólio pessoal full-stack</h3>
+                        <p class="muted">Este próprio site, criado para apresentar meu perfil técnico com uma experiência completa e organizada.</p>
+                    </div>
+                    <button class="project-modal-close" type="button" aria-label="Fechar" data-modal-close>×</button>
+                </div>
+                <div class="project-modal-media project-preview"><span class="project-brand">&lt; Sávio <strong>Dev</strong> /&gt;</span></div>
+                <div class="project-modal-grid">
+                    <div>
+                        <section class="project-modal-section">
+                            <h4>Contexto</h4>
+                            <p class="muted">Site multi-page criado para publicar perfil técnico, projetos, habilidades e contatos com front-end estático, SEO, JavaScript próprio e arquitetura simples para GitHub Pages.</p>
+                        </section>
+                        <section class="project-modal-section">
+                            <h4>Funcionalidades</h4>
+                            <ul class="feature-list">
+                                <li>Front-end responsivo</li>
+                                <li>Navegação bilíngue</li>
+                                <li>SEO e URLs limpas</li>
+                                <li>Fundo interativo responsivo</li>
+                            </ul>
+                        </section>
+                    </div>
+                    <aside>
+                        <div class="project-side-card">
+                            <h4>Links do Projeto</h4>
+                            <a class="button primary" href="https://github.com/saviodebug/saviodebug.github.io" target="_blank" rel="noreferrer">Acessar GitHub</a>
+                        </div>
+                        <div class="project-side-card">
+                            <h4>Tecnologias</h4>
+                            <div class="tech-list"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>SEO</span><span>Canvas</span></div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>
