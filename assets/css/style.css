@@ -159,14 +159,25 @@ header.hidden{
 }
 
 .language-switch{
-    width:38px;
+    min-width:58px;
     height:38px;
     border:1px solid var(--line);
     border-radius:8px;
-    display:grid;
-    place-items:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:0 9px;
     background:rgba(255,255,255,0.035);
+    color:var(--muted);
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:0;
     transition:background .18s ease,border-color .18s ease,transform .18s ease;
+}
+
+.language-switch span{
+    line-height:1;
 }
 
 .language-switch:hover{
