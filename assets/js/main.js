@@ -16,7 +16,7 @@
   }
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  initNetworkBackground(reduceMotion);
+  initNetworkBackground();
   initProjectModals();
 
   const burger = document.querySelector('.burger');
@@ -124,13 +124,15 @@
     }, 260);
   });
 
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card=>{
+  const motionCards = document.querySelectorAll('.card, .skill-panel, .contact-card, .social');
+  motionCards.forEach(card=>{
     card.addEventListener('mousemove', (e)=>{
       const rect = card.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `perspective(800px) translateY(-6px) rotateX(${ -y * 6 }deg) rotateY(${ x * 8 }deg)`;
+      const moveX = x * 14;
+      const moveY = y * 8;
+      card.style.transform = `perspective(900px) translate(${moveX}px, ${moveY - 5}px) rotateX(${ -y * 5 }deg) rotateY(${ x * 7 }deg)`;
     });
     card.addEventListener('mouseleave', ()=>{ card.style.transform='none'; });
   });
@@ -175,7 +177,7 @@
     return pagePath;
   }
 
-  function initNetworkBackground(motionQuery){
+  function initNetworkBackground(){
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     if(!ctx) return;
@@ -269,17 +271,27 @@
         if(point.y > height + 20) point.y = -20;
       }
       draw();
-      animationFrame = requestAnimationFrame(tick);
+      if(!document.hidden){
+        animationFrame = requestAnimationFrame(tick);
+      }
     }
 
     function start(){
       cancelAnimationFrame(animationFrame);
       resize();
-      if(!motionQuery.matches) tick();
+      if(!document.hidden) tick();
     }
 
     window.addEventListener('resize', resize);
     window.addEventListener('load', resize);
+    window.addEventListener('pageshow', start);
+    document.addEventListener('visibilitychange', ()=>{
+      if(document.hidden){
+        cancelAnimationFrame(animationFrame);
+      } else {
+        start();
+      }
+    });
     window.addEventListener('pointermove', (event)=>{
       mouse.x = event.clientX;
       mouse.y = event.clientY + window.scrollY;
@@ -288,7 +300,6 @@
       mouse.x = null;
       mouse.y = null;
     });
-    motionQuery.addEventListener('change', start);
     start();
   }
 
@@ -327,7 +338,7 @@
     });
   }
 
-  cards.forEach(card=>{
+  motionCards.forEach(card=>{
     card.addEventListener('focus', ()=>{ card.classList.add('focused'); });
     card.addEventListener('blur', ()=>{ card.classList.remove('focused'); });
   });
