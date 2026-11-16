@@ -1,0 +1,4 @@
+# Preserve upstream source and embedded GLSL formatting; review the authored scene separately.
+assets/vendor/** linguist-vendored=true whitespace=-blank-at-eol,-space-before-tab
+assets/js/hero-scene.bundle.js linguist-generated=true whitespace=-blank-at-eol,-space-before-tab
+assets/fonts/*-OFL.txt text eol=lf
