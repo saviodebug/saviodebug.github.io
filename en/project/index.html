@@ -12,7 +12,7 @@
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="stylesheet" href="/assets/css/style.css" />
         <script src="/assets/js/main.js" defer></script>
-        
+
     </head>
     <body>
         <header>
@@ -32,8 +32,22 @@
         <main class="container main-spacer">
             <section class="projects">
                 <h2>Featured Projects</h2>
-                <p class="section-copy">Projects built to show integration between APIs, automation, databases, and external services.</p>
+                <p class="section-copy">Public projects covering desktop applications, Discord automation, APIs, and web development.</p>
                 <div class="project-grid">
+                    <article class="card project-card" tabindex="0">
+                        <div class="project-preview"><div class="project-badge">WINDOWS APP</div><span>YOSHI <strong>Studio</strong></span></div>
+                        <div class="project-body">
+                            <h4>YOSHI Control Studio</h4>
+                            <p class="muted">Windows application for macros, keyboard and mouse shortcuts, custom profiles, and a Lua script editor. Official releases include verified updates.</p>
+                            <div class="tech-list compact-tech-list"><span>Windows x64</span><span>Lua</span><span>Ed25519</span><span>SHA-256</span></div>
+                            <div class="project-actions">
+                                <button class="button" type="button" data-project-modal="yoshi-studio">Details</button>
+                                <a class="button primary" href="https://github.com/saviodebug/Macro-Yoshi" target="_blank" rel="noreferrer">GitHub</a>
+                                <a class="button" href="https://github.com/saviodebug/Macro-Yoshi/releases/latest" target="_blank" rel="noreferrer">Official download</a>
+                            </div>
+                        </div>
+                    </article>
+
                     <article class="card project-card" tabindex="0">
                         <div class="project-preview">
                             <div class="project-badge">API</div>
@@ -51,11 +65,11 @@
                     </article>
                     <article class="card project-card" tabindex="0">
                         <div class="project-preview">
-                            <div class="project-badge">FULL-STACK</div>
+                            <div class="project-badge">WEB</div>
                             <span class="project-brand">&lt; Sávio <strong>Dev</strong> /&gt;</span>
                         </div>
                         <div class="project-body">
-                            <h4>Full-stack personal portfolio</h4>
+                            <h4>Personal portfolio</h4>
                             <p class="muted">This site: static interface, content structure, SEO, bilingual navigation, JavaScript interactions, canvas background, and page transitions.</p>
                             <div class="project-actions">
                                 <button class="button" type="button" data-project-modal="portfolio">Details</button>
@@ -81,6 +95,11 @@
                     </article>
                 </div>
             </section>
+            <section class="projects">
+                <h2>Earlier web project</h2>
+                <div class="grid"><a class="card" href="https://github.com/saviodebug/personal-website" target="_blank" rel="noreferrer"><h4>Personal Website</h4><p class="muted">Earlier HTML, CSS, and JavaScript website, documenting my web development practice before this portfolio.</p><span class="badge">HTML · CSS · JavaScript</span></a></div>
+            </section>
+
             <section class="Cursos">
                 <h2>Main courses </h2>
                 <div class="grid">
@@ -150,8 +169,8 @@
             <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="portfolio-title">
                 <div class="project-modal-head">
                     <div>
-                        <span class="badge">FULL-STACK</span>
-                        <h3 id="portfolio-title">Full-stack personal portfolio</h3>
+                        <span class="badge">WEB</span>
+                        <h3 id="portfolio-title">Personal portfolio</h3>
                         <p class="muted">This website itself, built to present my technical profile through a complete and organized experience.</p>
                     </div>
                     <button class="project-modal-close" type="button" aria-label="Close" data-modal-close>×</button>
@@ -228,6 +247,19 @@
                 </div>
             </div>
         </div>
-        
+
+        <div class="project-modal" id="project-modal-yoshi-studio" hidden>
+            <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="yoshi-studio-title">
+                <div class="project-modal-head">
+                    <div><span class="badge">WINDOWS APP</span><h3 id="yoshi-studio-title">YOSHI Control Studio</h3><p class="muted">Windows application for macros, keyboard and mouse shortcuts, custom profiles, and a Lua script editor. Official releases include verified updates.</p></div>
+                    <button class="project-modal-close" type="button" aria-label="Close" data-modal-close>×</button>
+                </div>
+                <div class="project-modal-media project-preview"><span>YOSHI <strong>Studio</strong></span></div>
+                <div class="project-modal-grid">
+                    <section class="project-modal-section"><h4>Features</h4><ul class="feature-list"><li>Profile creation, import, and export</li><li>Keyboard and mouse shortcut configuration</li><li>Lua script editor with validation</li><li>Updates verified with Ed25519 and SHA-256</li></ul><p class="muted">Windows 64-bit application. Requires a valid license and a connection for activation and updates. The public repository hosts documentation and official downloads.</p></section>
+                    <aside><div class="project-side-card"><h4>Project links</h4><a class="button primary" href="https://github.com/saviodebug/Macro-Yoshi" target="_blank" rel="noreferrer">GitHub</a><a class="button" href="https://github.com/saviodebug/Macro-Yoshi/releases/latest" target="_blank" rel="noreferrer">Official download</a></div></aside>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

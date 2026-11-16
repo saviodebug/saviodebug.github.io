@@ -430,6 +430,11 @@ header.hidden{
     margin:0 0 18px;
 }
 
+.skill-row p{
+    margin:0;
+    line-height:1.6;
+}
+
 .skill-row:last-child{
     margin-bottom:0;
 }

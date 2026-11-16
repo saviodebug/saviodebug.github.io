@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta name="description" content="Projetos e estudos técnicos de Sávio Junior em back-end, APIs, JavaScript e Java." />
+        <meta name="description" content="Projetos públicos de Sávio Junior: aplicações desktop, bots, APIs e desenvolvimento web." />
         <meta property="og:title" content="Projetos | Sávio Junior" />
-        <meta property="og:description" content="Portfólio técnico com projetos de back-end, APIs e serviços e APIs." />
+        <meta property="og:description" content="Aplicações desktop, bots para Discord, APIs e projetos web de Sávio Junior." />
         <meta property="og:image" content="https://saviodebug.github.io/assets/images/junin.jpeg" />
         <meta property="og:type" content="website" />
         <title>Projetos | Sávio Junior</title>
@@ -31,8 +31,22 @@
         <main class="container main-spacer">
             <section class="projects">
                 <h2>Projetos em destaque</h2>
-                <p class="section-copy">Projetos organizados para demonstrar integração entre APIs, automações, banco de dados e serviços externos.</p>
+                <p class="section-copy">Projetos públicos com aplicações desktop, automação para Discord, APIs e desenvolvimento web.</p>
                 <div class="project-grid">
+                    <article class="card project-card" tabindex="0">
+                        <div class="project-preview"><div class="project-badge">WINDOWS APP</div><span>YOSHI <strong>Studio</strong></span></div>
+                        <div class="project-body">
+                            <h4>YOSHI Control Studio</h4>
+                            <p class="muted">Aplicativo Windows para macros, atalhos de teclado e mouse, perfis personalizados e editor de scripts Lua. Releases oficiais com verificação de atualizações.</p>
+                            <div class="tech-list compact-tech-list"><span>Windows x64</span><span>Lua</span><span>Ed25519</span><span>SHA-256</span></div>
+                            <div class="project-actions">
+                                <button class="button" type="button" data-project-modal="yoshi-studio">Detalhes</button>
+                                <a class="button primary" href="https://github.com/saviodebug/Macro-Yoshi" target="_blank" rel="noreferrer">GitHub</a>
+                                <a class="button" href="https://github.com/saviodebug/Macro-Yoshi/releases/latest" target="_blank" rel="noreferrer">Download oficial</a>
+                            </div>
+                        </div>
+                    </article>
+
                     <article class="card project-card" tabindex="0">
                         <div class="project-preview">
                             <div class="project-badge">API</div>
@@ -50,11 +64,11 @@
                     </article>
                     <article class="card project-card" tabindex="0">
                         <div class="project-preview">
-                            <div class="project-badge">FULL-STACK</div>
+                            <div class="project-badge">WEB</div>
                             <span class="project-brand">&lt; Sávio <strong>Dev</strong> /&gt;</span>
                         </div>
                         <div class="project-body">
-                            <h4>Portfólio pessoal full-stack</h4>
+                            <h4>Portfólio pessoal</h4>
                             <p class="muted">Este site: interface estática, organização de conteúdo, SEO, navegação bilíngue, JavaScript para interações, fundo em canvas e transições entre páginas.</p>
                             <div class="project-actions">
                                 <button class="button" type="button" data-project-modal="portfolio">Detalhes</button>
@@ -80,6 +94,11 @@
                     </article>
                 </div>
             </section>
+            <section class="projects">
+                <h2>Primeiro site pessoal</h2>
+                <div class="grid"><a class="card" href="https://github.com/saviodebug/personal-website" target="_blank" rel="noreferrer"><h4>Personal Website</h4><p class="muted">Site anterior em HTML, CSS e JavaScript, registrando minha prática em desenvolvimento web antes deste portfólio.</p><span class="badge">HTML · CSS · JavaScript</span></a></div>
+            </section>
+
             <section class="Cursos">
                 <h2>Cursos em destaque</h2>
                 <div class="grid">
@@ -149,8 +168,8 @@
             <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="portfolio-title">
                 <div class="project-modal-head">
                     <div>
-                        <span class="badge">FULL-STACK</span>
-                        <h3 id="portfolio-title">Portfólio pessoal full-stack</h3>
+                        <span class="badge">WEB</span>
+                        <h3 id="portfolio-title">Portfólio pessoal</h3>
                         <p class="muted">Este próprio site, criado para apresentar meu perfil técnico com uma experiência completa e organizada.</p>
                     </div>
                     <button class="project-modal-close" type="button" aria-label="Fechar" data-modal-close>×</button>
@@ -227,6 +246,19 @@
                 </div>
             </div>
         </div>
-        
+
+        <div class="project-modal" id="project-modal-yoshi-studio" hidden>
+            <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="yoshi-studio-title">
+                <div class="project-modal-head">
+                    <div><span class="badge">WINDOWS APP</span><h3 id="yoshi-studio-title">YOSHI Control Studio</h3><p class="muted">Aplicativo Windows para macros, atalhos de teclado e mouse, perfis personalizados e editor de scripts Lua. Releases oficiais com verificação de atualizações.</p></div>
+                    <button class="project-modal-close" type="button" aria-label="Fechar" data-modal-close>×</button>
+                </div>
+                <div class="project-modal-media project-preview"><span>YOSHI <strong>Studio</strong></span></div>
+                <div class="project-modal-grid">
+                    <section class="project-modal-section"><h4>Funcionalidades</h4><ul class="feature-list"><li>Criação, importação e exportação de perfis</li><li>Configuração de atalhos de teclado e mouse</li><li>Editor de scripts Lua com validação</li><li>Atualizações verificadas com Ed25519 e SHA-256</li></ul><p class="muted">Aplicativo para Windows de 64 bits. Requer licença válida e conexão para ativação e atualizações. O repositório público reúne documentação e downloads oficiais.</p></section>
+                    <aside><div class="project-side-card"><h4>Links do projeto</h4><a class="button primary" href="https://github.com/saviodebug/Macro-Yoshi" target="_blank" rel="noreferrer">GitHub</a><a class="button" href="https://github.com/saviodebug/Macro-Yoshi/releases/latest" target="_blank" rel="noreferrer">Download oficial</a></div></aside>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
