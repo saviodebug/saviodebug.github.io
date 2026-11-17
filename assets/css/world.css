@@ -131,3 +131,5 @@ body.world-ready .hero-copy h1:focus{outline:none}
 @media(min-width:760px) and (max-width:1000px){body.world-ready .hero-lead{max-width:170px;font-size:11px}body.world-ready .hero-copy h1{font-size:66px}}
 
 body.world-ready .hero-coordinate{display:none}
+
+@media(max-width:360px){.world-rail{gap:0;padding:3px}.world-rail a{width:20px}}

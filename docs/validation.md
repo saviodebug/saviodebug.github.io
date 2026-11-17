@@ -68,3 +68,12 @@ Auditoria de carregamento final em 1440 e 390 pixels: 0 falhas, 3 avisos. Cerca 
 O proprietário escolheu a apresentação em estrutura. Os materiais usam wireframe desde a primeira renderização, com os mesmos elementos que o seletor anterior alterava. Logos, partículas e anéis preservam sua identidade. O seletor Sólido/Estrutura e seus eventos foram removidos dos dois idiomas; alternar o tema mantém a estrutura. Assets receberam nova versão para invalidar o cache.
 
 Brave: chamadas reais de desenho em linhas confirmadas em português e inglês, nenhum botão de modo no DOM, estrutura mantida ao mudar para o tema claro e nenhuma exceção JavaScript. Prévia social atualizada com captura real. Sintaxe e diff verificados.
+
+
+## Quarto projeto: portal ConfereAí — 17/11/2026
+
+O portal educativo aparece separadamente da extensão/API nos dois idiomas, no filtro Web, no terminal (`open portal`) e no percurso 3D. O portal recebe a quarta estação, com geometria de página em estrutura e o logo existente. Os capítulos de stack e contato avançam no percurso para manter o espaçamento. A entrada pública aponta somente para o site online, sem link para o repositório privado. Referências ao primeiro site foram removidas da página e do README.
+
+Brave: quatro projetos nos dois idiomas, duas entradas no filtro Web, `open portal` abre o capítulo e os detalhes, quarto capítulo acessível pelo navegador lateral, modo estrutura mantido. Capturas em 1440, 390 e 320 pixels sem overflow horizontal. A experiência anterior no Jardim Anchieta permanece na página do site. Nenhum link para o repositório privado do portal ou para o antigo site removido.
+
+Fallback verificado em 390 pixels com WebGL bloqueado: quatro projetos, arte HTML do portal visível e logo decodificado, sem links para o código privado e sem exceções JavaScript.

@@ -95,7 +95,8 @@ export function mountScene(host, { english = false } = {}) {
   const stationSpecs = [
     { id: 'project-yoshi', z: -16, color: 0x8e83ff, file: 'yoshi-mark.png' },
     { id: 'project-bot', z: -32, color: 0x7b9fff, file: 'yoshi-community.webp' },
-    { id: 'project-confere', z: -48, color: 0x77d5f1, file: 'confereai-logo.webp' }
+    { id: 'project-confere', z: -48, color: 0x77d5f1, file: 'confereai-logo.webp' },
+    { id: 'project-confere-site', z: -64, color: 0x9eaaff, file: 'confereai-logo.webp' }
   ];
   stationSpecs.forEach((spec, index) => {
     const group = new THREE.Group();
@@ -122,13 +123,18 @@ export function mountScene(host, { english = false } = {}) {
       sculpture.add(octa);
       const cage = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(2.15, 0)), new THREE.LineBasicMaterial({ color: 0x91b3ff }));
       sculpture.add(cage);
-    } else {
+    } else if (index === 2) {
       const frameGeometry = new THREE.TorusGeometry(1.65, .16, 6, 4);
       const frameA = new THREE.Mesh(frameGeometry, material);
       const frameB = new THREE.Mesh(frameGeometry, edge);
       frameA.rotation.z = Math.PI / 4;
       frameB.rotation.set(0, Math.PI / 2, Math.PI / 4);
       sculpture.add(frameA, frameB);
+    } else {
+      const page = new THREE.Mesh(new THREE.BoxGeometry(3.3, 2.2, .25), material);
+      const toolbar = new THREE.Mesh(new THREE.BoxGeometry(3.3, .18, .3), edge);
+      toolbar.position.y = .8;
+      sculpture.add(page, toolbar);
     }
     const texture = loader.load('/assets/images/projects/' + spec.file, tex => { if (disposed) tex.dispose(); });
     texture.colorSpace = THREE.SRGBColorSpace;
@@ -155,7 +161,7 @@ export function mountScene(host, { english = false } = {}) {
   scene.add(new THREE.Points(starsGeometry, starMaterial));
 
   const constellation = new THREE.Group();
-  constellation.position.set(2, 0, -73);
+  constellation.position.set(2, 0, -89);
   scene.add(constellation);
   const count = 1600, particlePositions = new Float32Array(count * 3);
   const particleTargets = [];
@@ -191,7 +197,7 @@ export function mountScene(host, { english = false } = {}) {
   const particles = new THREE.Points(particleGeometry, particleMaterial);
   constellation.add(particles);
   const stackPortal = new THREE.Mesh(new THREE.TorusKnotGeometry(1.7, .12, 90, 8, 2, 3), edge);
-  stackPortal.position.set(3, 0, -60);
+  stackPortal.position.set(3, 0, -76);
   scene.add(stackPortal);
 
   const lookAt = new THREE.Vector3(), destination = new THREE.Vector3();
@@ -283,10 +289,10 @@ export function mountScene(host, { english = false } = {}) {
       station.sculpture.position.y = Math.sin(elapsed * .9 + index) * .14;
       station.logo.rotation.y = camera.position.x > station.group.position.x ? .18 : -.18;
     });
-    stackPortal.visible = destination.z < -54 && destination.z > -68;
-    constellation.visible = destination.z < -64;
+    stackPortal.visible = destination.z < -70 && destination.z > -84;
+    constellation.visible = destination.z < -80;
     stackPortal.rotation.set(elapsed * .12, elapsed * .18, 0);
-    if (destination.z < -64) {
+    if (destination.z < -80) {
       const target = particleTargets[particleShape];
       for (let i = 0; i < particlePositions.length; i++) particlePositions[i] += (target[i] - particlePositions[i]) * damp;
       particleGeometry.attributes.position.needsUpdate = true;

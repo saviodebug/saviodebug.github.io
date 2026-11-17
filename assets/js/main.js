@@ -65,7 +65,7 @@ async function loadScene() {
   if (!host || sceneController || sceneLoading) return;
   sceneLoading = true;
   try {
-    const { mountScene } = await import('./hero-scene.bundle.js?v=world-wire-v1');
+    const { mountScene } = await import('./hero-scene.bundle.js?v=four-projects-v1');
     sceneController = mountScene(host, { english });
   } catch (error) {
     // The poster remains visible and the content works if WebGL or its module is unavailable.
@@ -118,7 +118,7 @@ function filterProjects(category) {
     if (!row.hidden) { count++; row.classList.add('is-visible'); }
   });
   filterGroup.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === category)));
-  document.querySelector('.project-count').textContent = english ? `${count} public project${count === 1 ? '' : 's'}` : `${count} projeto${count === 1 ? '' : 's'} público${count === 1 ? '' : 's'}`;
+  document.querySelector('.project-count').textContent = english ? `${count} selected project${count === 1 ? '' : 's'}` : `${count} projeto${count === 1 ? '' : 's'} selecionado${count === 1 ? '' : 's'}`;
   refreshProjectJourney();
 }
 if (filterGroup) {
@@ -175,11 +175,11 @@ function runCommand(raw) {
   terminalLine(`❯ ${raw.trim()}`, 'terminal-echo');
   switch (command) {
     case 'help':
-      terminalLine(words('projects  projetos e código público', 'projects  public projects and source'));
+      terminalLine(words('projects  projetos e demonstrações', 'projects  projects and demos'));
       terminalLine(words('stack     linguagens e ferramentas', 'stack     languages and tools'));
       terminalLine(words('whoami    nome, graduação e trabalho', 'whoami    name, studies, and work'));
       terminalLine(words('contact   email e redes profissionais', 'contact   email and professional profiles'));
-      terminalLine(words('open yoshi | bot | confereai — abrir projeto', 'open yoshi | bot | confereai — open a project'));
+      terminalLine(words('open yoshi | bot | confereai | portal — abrir projeto', 'open yoshi | bot | confereai | portal — open a project'));
       terminalLine(words('clear     limpar terminal', 'clear     clear terminal'));
       break;
     case 'projects':
@@ -187,6 +187,7 @@ function runCommand(raw) {
       terminalLink('YOSHI Control Studio / Windows', '#project-yoshi');
       terminalLink('YoshiBot / Python + Discord', '#project-bot');
       terminalLink('ConfereAí / Node.js + Manifest V3', '#project-confere');
+      terminalLink('ConfereAí — Portal / HTML + CSS + JavaScript', '#project-confere-site');
       filterProjects('all');
       break;
     case 'stack':
@@ -211,8 +212,9 @@ function runCommand(raw) {
       break;
     case 'open yoshi':
     case 'open bot':
+    case 'open portal':
     case 'open confereai': {
-      const id = command === 'open yoshi' ? 'yoshi' : command === 'open bot' ? 'bot' : 'confere';
+      const id = command === 'open yoshi' ? 'yoshi' : command === 'open bot' ? 'bot' : command === 'open portal' ? 'confere-site' : 'confere';
       filterProjects('all');
       const row = document.getElementById(`project-${id}`);
       row.querySelector('details').open = true;
@@ -386,7 +388,7 @@ document.querySelectorAll('.footer-line a[href="#inicio"]').forEach(link => {
 const worldRail = document.createElement('nav');
 worldRail.className = 'world-rail';
 worldRail.setAttribute('aria-label', words('Etapas da viagem', 'Journey chapters'));
-[['inicio','00'],['project-yoshi','01'],['project-bot','02'],['project-confere','03'],['stack','04'],['sobre','05'],['contato','06']].forEach(([id,number]) => {
+[['inicio','00'],['project-yoshi','01'],['project-bot','02'],['project-confere','03'],['project-confere-site','04'],['stack','05'],['sobre','06'],['contato','07']].forEach(([id,number]) => {
   const target = document.getElementById(id);
   const link = document.createElement('a');
   link.href = `#${id}`;

@@ -12,9 +12,9 @@ O site apresenta trabalhos com propostas diferentes:
 
 - **[YOSHI Control Studio](https://github.com/saviodebug/Macro-Yoshi):** aplicação Windows para macros, atalhos e perfis personalizados, com editor Lua e distribuição de atualizações.
 - **[YoshiBot](https://github.com/saviodebug/YoshiBot):** bot para Discord desenvolvido em Python, com atendimento por tickets, moderação e integração com YouTube.
-- **[ConfereAí](https://github.com/saviodebug/ConfereAi):** extensão de navegador com uma API para apoiar a análise de sinais de risco em notícias e imagens.
+- **[ConfereAí — extensão](https://github.com/saviodebug/ConfereAi):** extensão de navegador com uma API para apoiar a análise de sinais de risco em notícias e imagens.
 
-Também mantenho o [primeiro site pessoal](https://github.com/saviodebug/personal-website) como registro da minha evolução em desenvolvimento web.
+- **[ConfereAí — portal](https://confereai-site.vercel.app/):** site educativo com artigos, critérios e fontes para apoiar a leitura crítica de notícias, desenvolvido com Carolina Jardim Ribeiro em HTML, CSS e JavaScript.
 
 ## Sobre este site
 
