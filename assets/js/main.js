@@ -60,7 +60,7 @@ async function loadScene() {
   if (!host || sceneController || sceneLoading) return;
   sceneLoading = true;
   try {
-    const { mountScene } = await import('./hero-scene.bundle.js?v=orbital-v1');
+    const { mountScene } = await import('./hero-scene.bundle.js?v=cinematic-v1');
     sceneController = mountScene(host, { english });
   } catch (error) {
     // The poster remains visible and the content works if WebGL or its module is unavailable.
@@ -80,7 +80,7 @@ window.addEventListener('pageshow', event => {
     loadScene();
   }
 });
-document.documentElement.dataset.ready = '1';
+if (!document.documentElement.classList.contains('intro-pending')) document.documentElement.dataset.ready = '1';
 // Theme selection is local to the visitor and applied before styles load.
 const themeToggle = document.querySelector('.theme-toggle');
 function syncTheme() {
@@ -125,7 +125,12 @@ if (filterGroup) {
 }
 
 // Reveal content once; movement never gates access to a project or its links.
-const revealTargets = [...document.querySelectorAll('.project-row, .stack-group, .experience')];
+const storyTargets = [...document.querySelectorAll('.section-heading, .terminal-intro, .terminal-window, .about-portrait, .about-content, .contact-heading, .contact-bottom')];
+storyTargets.forEach((target, index) => {
+  target.classList.add('reveal-block');
+  target.style.setProperty('--reveal-delay', `${(index % 2) * 90}ms`);
+});
+const revealTargets = [...document.querySelectorAll('.project-row, .stack-group, .experience'), ...storyTargets];
 const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); }
@@ -238,6 +243,7 @@ const stage = document.querySelector('.project-stage');
 const depthScene = document.querySelector('.project-depth-scene');
 const depthCards = [];
 let journeyRows = [], journeyCenters = [], journeyFrame = 0, journeyIndex = 0;
+let journeyProgress = 0, journeyLastTime = 0, journeyUIInvalidated = true;
 if (journey && stage && depthScene) {
   projectRows.forEach(row => {
     const card = document.createElement('a');
@@ -262,6 +268,8 @@ function refreshProjectJourney() {
   document.body.classList.add('journey-ready');
   stage.hidden = false;
   journeyRows = projectRows.filter(row => !row.hidden);
+  journeyProgress = Math.min(journeyProgress, Math.max(0, journeyRows.length - 1));
+  journeyUIInvalidated = true;
   const anchor = innerWidth <= 800 ? innerHeight * .67 : innerHeight * .52;
   journeyCenters = journeyRows.map(row => {
     const rect = row.getBoundingClientRect();
@@ -272,17 +280,25 @@ function refreshProjectJourney() {
 function scheduleJourney() {
   if (!journeyFrame) journeyFrame = requestAnimationFrame(drawJourney);
 }
-function drawJourney() {
+function drawJourney(now) {
   journeyFrame = 0;
   if (!stage || !journeyRows.length) return;
   const position = scrollY;
-  let progress = 0;
+  let targetProgress = 0;
   for (let i = 0; i < journeyCenters.length - 1; i++) {
     if (position >= journeyCenters[i]) {
-      progress = i + Math.max(0, Math.min(1, (position - journeyCenters[i]) / Math.max(1, journeyCenters[i + 1] - journeyCenters[i])));
+      targetProgress = i + Math.max(0, Math.min(1, (position - journeyCenters[i]) / Math.max(1, journeyCenters[i + 1] - journeyCenters[i])));
     }
   }
+  const deltaTime = Math.min((now - (journeyLastTime || now - 1000 / 60)) / 1000, .05);
+  journeyLastTime = now;
+  journeyProgress += (targetProgress - journeyProgress) * (1 - Math.exp(-14 * deltaTime));
+  if (Math.abs(targetProgress - journeyProgress) < .0005) journeyProgress = targetProgress;
+  const progress = journeyProgress;
+  const previousIndex = journeyIndex;
   journeyIndex = Math.max(0, Math.min(journeyRows.length - 1, Math.round(progress)));
+  const updateUI = journeyUIInvalidated || previousIndex !== journeyIndex;
+  journeyUIInvalidated = false;
   const compact = innerWidth <= 800;
   depthCards.forEach(({ card, row }) => {
     const index = journeyRows.indexOf(row);
@@ -297,15 +313,21 @@ function drawJourney() {
     card.style.opacity = distance < .5 ? '1' : String(Math.max(.12, 1 - distance * .43));
     card.style.zIndex = String(10 - Math.round(distance * 3));
     const active = row === journeyRows[journeyIndex];
-    card.style.pointerEvents = active ? 'auto' : 'none';
-    card.tabIndex = active ? 0 : -1;
-    card.setAttribute('aria-hidden', String(!active));
-    row.classList.toggle('is-active', active);
+    if (updateUI) {
+      card.style.pointerEvents = active ? 'auto' : 'none';
+      card.tabIndex = active ? 0 : -1;
+      card.setAttribute('aria-hidden', String(!active));
+      row.classList.toggle('is-active', active);
+    }
   });
-  stage.querySelector('.stage-project-name').textContent = journeyRows[journeyIndex].querySelector('h3').textContent;
-  stage.querySelector('.stage-position').textContent = `${String(journeyIndex + 1).padStart(2, '0')} — ${String(journeyRows.length).padStart(2, '0')}`;
-  stage.querySelector('.stage-previous').disabled = journeyIndex === 0;
-  stage.querySelector('.stage-next').disabled = journeyIndex === journeyRows.length - 1;
+  if (updateUI) {
+    stage.querySelector('.stage-project-name').textContent = journeyRows[journeyIndex].querySelector('h3').textContent;
+    stage.querySelector('.stage-position').textContent = `${String(journeyIndex + 1).padStart(2, '0')} — ${String(journeyRows.length).padStart(2, '0')}`;
+    stage.querySelector('.stage-previous').disabled = journeyIndex === 0;
+    stage.querySelector('.stage-next').disabled = journeyIndex === journeyRows.length - 1;
+  }
+  if (journeyProgress !== targetProgress) journeyFrame = requestAnimationFrame(drawJourney);
+  else journeyLastTime = 0;
 }
 if (journey) {
   const layoutObserver = new ResizeObserver(refreshProjectJourney);
@@ -340,3 +362,107 @@ if (cube && universe) {
     cube.style.setProperty('--cube-y', `${cubeY}deg`);
   });
 }
+
+// Opening sequence: the name arrives first; the world follows without locking native scrolling.
+async function playOpening() {
+  const root = document.documentElement;
+  const heading = document.querySelector('.hero h1');
+  const panel = document.querySelector('.hero-inner');
+  if (scrollY > 16 || !root.classList.contains('intro-pending') || !heading || !panel || !heading.animate) {
+    root.classList.remove('intro-pending');
+    root.dataset.ready = '1';
+    root.dataset.intro = 'complete';
+    return;
+  }
+  await Promise.race([document.fonts.ready, new Promise(resolve => setTimeout(resolve, 450))]);
+  if (!root.classList.contains('intro-pending')) return;
+  root.classList.remove('intro-pending');
+  root.classList.add('intro-running');
+  root.dataset.intro = 'name';
+  const target = heading.getBoundingClientRect();
+  const stageRect = panel.getBoundingClientRect();
+  const x = stageRect.left + stageRect.width / 2 - (target.left + target.width / 2);
+  const y = stageRect.top + stageRect.height * .45 - (target.top + target.height / 2);
+  const scale = Math.min(innerWidth < 600 ? 1.2 : 1.55, stageRect.width * .82 / target.width, stageRect.height * .6 / target.height);
+  const animation = heading.animate([
+    { transform: `translate3d(${x}px,${y}px,0) scale(${scale})`, offset: 0 },
+    { transform: `translate3d(${x}px,${y}px,0) scale(${scale})`, offset: .35 },
+    { transform: 'translate3d(0,0,0) scale(1)', offset: 1 }
+  ], { duration: 1850, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'both' });
+  let completed = false;
+  const revealTimer = setTimeout(() => {
+    root.classList.add('intro-details');
+    root.dataset.intro = 'world';
+  }, 850);
+  const finishTimer = setTimeout(finish, 2350);
+  function finish() {
+    if (completed) return;
+    completed = true;
+    clearTimeout(revealTimer);
+    clearTimeout(finishTimer);
+    animation.cancel();
+    root.classList.remove('intro-pending', 'intro-running', 'intro-details');
+    root.dataset.intro = 'complete';
+    root.dataset.ready = '1';
+    refreshProjectJourney();
+    removeEventListener('wheel', finish);
+    removeEventListener('touchstart', finish);
+    removeEventListener('scroll', skipOnScroll);
+    removeEventListener('keydown', skipOnKey);
+  }
+  function skipOnScroll() { if (scrollY > 16) finish(); }
+  function skipOnKey(event) { if (['ArrowDown', 'PageDown', ' ', 'End'].includes(event.key)) finish(); }
+  addEventListener('wheel', finish, { passive: true, once: true });
+  addEventListener('touchstart', finish, { passive: true, once: true });
+  addEventListener('scroll', skipOnScroll, { passive: true });
+  addEventListener('keydown', skipOnKey);
+}
+playOpening();
+
+// A deliberate extra scroll at the end closes the journey and opens it again.
+const loopCurtain = document.createElement('div');
+loopCurtain.className = 'journey-loop';
+loopCurtain.setAttribute('aria-hidden', 'true');
+loopCurtain.innerHTML = '<span class="loop-orbit"></span><span class="loop-name">Savio Junior<span>_</span></span>';
+document.body.append(loopCurtain);
+let loopBusy = false, bottomSince = 0, loopDistance = 0, touchOrigin = null;
+const atEnd = () => scrollY + innerHeight >= document.documentElement.scrollHeight - 4;
+function returnThroughPortal() {
+  if (loopBusy) return;
+  loopBusy = true;
+  loopCurtain.classList.add('is-active');
+  setTimeout(() => {
+    const root = document.documentElement;
+    const previous = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    scrollTo({ top: 0, behavior: 'instant' });
+    root.style.scrollBehavior = previous;
+    document.querySelector('.hero h1')?.focus({ preventScroll: true });
+    root.classList.add('intro-pending');
+    playOpening();
+    loopCurtain.classList.remove('is-active');
+  }, 650);
+  setTimeout(() => { loopBusy = false; bottomSince = 0; loopDistance = 0; }, 3200);
+}
+addEventListener('scroll', () => {
+  if (!atEnd()) { bottomSince = 0; loopDistance = 0; }
+  else if (!bottomSince) bottomSince = performance.now();
+}, { passive: true });
+addEventListener('wheel', event => {
+  if (event.ctrlKey || event.target.closest?.('input, textarea, .terminal-output') || !atEnd() || loopBusy) return;
+  if (event.deltaY <= 0) { loopDistance = 0; return; }
+  if (!bottomSince) { bottomSince = performance.now(); return; }
+  if (performance.now() - bottomSince < 650) return;
+  loopDistance += event.deltaY;
+  if (loopDistance > 160) returnThroughPortal();
+}, { passive: true });
+addEventListener('touchstart', event => {
+  touchOrigin = atEnd() ? event.touches[0].clientY : null;
+}, { passive: true });
+addEventListener('touchend', event => {
+  if (touchOrigin !== null && touchOrigin - event.changedTouches[0].clientY > 80 && atEnd()) returnThroughPortal();
+  touchOrigin = null;
+}, { passive: true });
+document.querySelectorAll('.footer-line a[href="#inicio"]').forEach(link => {
+  link.addEventListener('click', event => { event.preventDefault(); returnThroughPortal(); });
+});

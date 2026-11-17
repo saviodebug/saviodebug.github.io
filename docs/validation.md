@@ -26,3 +26,18 @@ Os testes usam navegadores locais com renderização por software. Não represen
 ## Referências e conteúdo
 
 Referências visuais consultadas: https://bruno-simon.com/ e https://www.seanhalpin.xyz/. Composição, código e objetos são próprios do portfólio. Identidades dos projetos foram preservadas. Nome e experiências profissionais seguem as informações fornecidas pelo proprietário.
+
+
+## Abertura e navegação circular — 16/11/2026
+
+O nome aparece antes do cenário. A entrada dura cerca de 2,35 segundos e termina imediatamente se o visitante começa a navegar. Âncoras diretas preservam o destino. Títulos, retrato e terminal aparecem durante a rolagem. A galeria interpola a posição por tempo, sem modificar a rolagem nativa.
+
+No final, uma rolagem adicional abre um portal e retorna à apresentação. Há uma margem de 650 ms e 160 pixels adicionais para evitar que o mesmo impulso que alcançou o contato reinicie a página. No celular, um novo gesto para cima de mais de 80 pixels aciona o retorno. Os links do rodapé também abrem o portal; o foco retorna ao título.
+
+Medição no Brave local, 1440 × 900, DPR 1, cena visível após aquecimento de 2,5 s, janela de 5 s: antes 21,5 FPS (mediana 49,2 ms; p95 53,8 ms); depois 34,6 FPS (mediana 28,7 ms; p95 32 ms). Removido o limitador de 30 FPS, que descartava quadros adicionais; rotação usa amortecimento independente da taxa. Renderização por software: estes números não garantem 60 FPS nos computadores dos visitantes. Nenhuma textura ou material foi degradado para elevar a medição.
+
+Brave: 12 cenários de largura/tema entre 320 e 1440 pixels, sem overflow ou imagens quebradas. Controles, filtros, terminal, galeria, teclado, idioma e movimento contínuo passaram novamente. Sintaxe de fonte e bundle e whitespace verificados.
+
+Referências adicionais consultadas: [Igloo](https://www.igloo.inc/) para continuidade entre fim e começo, [Lusion](https://lusion.co/) e [Active Theory](https://activetheory.net/) para experiências espaciais. A cena e a transição do portfólio são próprias; não foram copiados os modelos, texturas ou código dessas referências.
+
+Retorno circular verificado no Brave por link, rolagem adicional e gesto móvel: posição final no topo, foco no H1 e reabertura concluída com cenário visível. Acesso direto a `/en/#stack` preservou idioma e destino após carregamento. Nenhuma exceção JavaScript nesses cenários.

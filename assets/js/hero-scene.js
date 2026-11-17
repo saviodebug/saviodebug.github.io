@@ -124,7 +124,6 @@ export function mountScene(host, { english = false } = {}) {
   host.removeAttribute('aria-hidden');
   host.setAttribute('role', 'group');
   host.setAttribute('aria-label', english ? 'Interactive 3D. Drag or use arrow keys to rotate. Home resets the view.' : '3D interativo. Arraste ou use as setas para girar. Home redefine a visão.');
-  const frameDelay = 1000 / 30;
   function resize() {
     if (disposed) return;
     const width = Math.max(1, host.clientWidth), height = Math.max(1, host.clientHeight);
@@ -140,13 +139,14 @@ export function mountScene(host, { english = false } = {}) {
     frame = 0;
     if (disposed || !visible || document.hidden) return;
     frame = requestAnimationFrame(animate);
-    if (now - last < frameDelay) return;
-    elapsed += Math.min(now - (last || now), 100) / 1000;
+    const delta = Math.min((now - (last || now - 1000 / 60)) / 1000, .05);
+    elapsed += delta;
     last = now;
+    const damping = 1 - Math.exp(-7 * delta);
     const targetX = .2 + dragPitch + pointerY * .16 + Math.sin(elapsed * .35) * .06;
     const targetY = -.35 + dragYaw + pointerX * .35 + elapsed * .16;
-    sculpture.rotation.x += (targetX - sculpture.rotation.x) * .06;
-    sculpture.rotation.y += (targetY - sculpture.rotation.y) * .06;
+    sculpture.rotation.x += (targetX - sculpture.rotation.x) * damping;
+    sculpture.rotation.y += (targetY - sculpture.rotation.y) * damping;
     sculpture.rotation.z = -.14 + Math.sin(elapsed * .25) * .04;
     sculpture.position.y = Math.sin(elapsed * 1.1) * .12;
     // The brackets separate as the visitor leaves the opening and enters the projects.
