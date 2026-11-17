@@ -61,7 +61,7 @@ async function loadScene() {
   if (!host || reducedMotion.matches || sceneController || sceneLoading) return;
   sceneLoading = true;
   try {
-    const { mountScene } = await import('./hero-scene.bundle.js');
+    const { mountScene } = await import('./hero-scene.bundle.js?v=studio-v3');
     if (!reducedMotion.matches) sceneController = mountScene(host, { english });
   } catch (error) {
     // The poster remains visible and the content works if WebGL or its module is unavailable.
