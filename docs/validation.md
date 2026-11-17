@@ -1,4 +1,4 @@
-# Validação da revisão orbital — 16/11/2026
+# Validação da revisão orbital: 16/11/2026
 
 ## Investigação no Brave
 
@@ -28,7 +28,7 @@ Os testes usam navegadores locais com renderização por software. Não represen
 Referências visuais consultadas: https://bruno-simon.com/ e https://www.seanhalpin.xyz/. Composição, código e objetos são próprios do portfólio. Identidades dos projetos foram preservadas. Nome e experiências profissionais seguem as informações fornecidas pelo proprietário.
 
 
-## Abertura e navegação circular — 16/11/2026
+## Abertura e navegação circular: 16/11/2026
 
 O nome aparece antes do cenário. A entrada dura cerca de 2,35 segundos e termina imediatamente se o visitante começa a navegar. Âncoras diretas preservam o destino. Títulos, retrato e terminal aparecem durante a rolagem. A galeria interpola a posição por tempo, sem modificar a rolagem nativa.
 
@@ -43,7 +43,7 @@ Referências adicionais consultadas: [Igloo](https://www.igloo.inc/) para contin
 Retorno circular verificado no Brave por link, rolagem adicional e gesto móvel: posição final no topo, foco no H1 e reabertura concluída com cenário visível. Acesso direto a `/en/#stack` preservou idioma e destino após carregamento. Nenhuma exceção JavaScript nesses cenários.
 
 
-## Ambiente contínuo — 17/11/2026
+## Ambiente contínuo: 17/11/2026
 
 A revisão substitui a galeria anterior por um canvas fixo com câmera conduzida pela rolagem nativa. Mantém o conteúdo em HTML, identidades reais dos três projetos, filtros, detalhes, terminal, trajetória e contatos. A abertura centraliza o cenário e distribui os textos pelos cantos. Partículas reagem aos links de contato; o retorno refaz o percurso antes de abrir a apresentação.
 
@@ -58,22 +58,29 @@ A cena usa iluminação pré-calculada no terreno, núcleo instanciado e um só 
 Sintaxe das três entradas JavaScript e bundle, IDs únicos, âncoras, assets dos dois idiomas e whitespace verificados. Nenhuma dependência de runtime ou fonte externa foi adicionada.
 
 
-Auditoria de carregamento final em 1440 e 390 pixels: 0 falhas, 3 avisos. Cerca de 843–859 KiB transferidos no servidor local sem gzip, 18 requisições, um contexto WebGL vivo no início e no fim, nenhum pedido quebrado. Avisos: tamanho de JavaScript analisado (o motor Three.js local) e dimensões declaradas do SVG de fallback no celular; o SVG é vetorial e não exige bitmap nessa resolução. FCP/LCP locais de aproximadamente 0,2 s foram medidos com WebGL bloqueado pelo próprio auditor e não representam desempenho de produção nem compilação de shaders em GPU. A execução WebGL por SwiftShader foi registrada separadamente pelo auditor e não é usada para prometer 60 FPS.
+Auditoria de carregamento final em 1440 e 390 pixels: 0 falhas, 3 avisos. Cerca de 843 a 859 KiB transferidos no servidor local sem gzip, 18 requisições, um contexto WebGL vivo no início e no fim, nenhum pedido quebrado. Avisos: tamanho de JavaScript analisado (o motor Three.js local) e dimensões declaradas do SVG de fallback no celular; o SVG é vetorial e não exige bitmap nessa resolução. FCP/LCP locais de aproximadamente 0,2 s foram medidos com WebGL bloqueado pelo próprio auditor e não representam desempenho de produção nem compilação de shaders em GPU. A execução WebGL por SwiftShader foi registrada separadamente pelo auditor e não é usada para prometer 60 FPS.
 
 Último teste de interação utilizou eventos de mouse do navegador: o botão Estrutura estava acima do conteúdo e recebeu o clique real, alterando o material. Retorno por scroll/toque, inglês e fallback passaram novamente, sem exceções. A prévia social foi atualizada com uma captura real da nova abertura.
 
 
-## Estrutura como apresentação única — 17/11/2026
+## Estrutura como apresentação única: 17/11/2026
 
 O proprietário escolheu a apresentação em estrutura. Os materiais usam wireframe desde a primeira renderização, com os mesmos elementos que o seletor anterior alterava. Logos, partículas e anéis preservam sua identidade. O seletor Sólido/Estrutura e seus eventos foram removidos dos dois idiomas; alternar o tema mantém a estrutura. Assets receberam nova versão para invalidar o cache.
 
 Brave: chamadas reais de desenho em linhas confirmadas em português e inglês, nenhum botão de modo no DOM, estrutura mantida ao mudar para o tema claro e nenhuma exceção JavaScript. Prévia social atualizada com captura real. Sintaxe e diff verificados.
 
 
-## Quarto projeto: portal ConfereAí — 17/11/2026
+## Quarto projeto: portal ConfereAí: 17/11/2026
 
 O portal educativo aparece separadamente da extensão/API nos dois idiomas, no filtro Web, no terminal (`open portal`) e no percurso 3D. O portal recebe a quarta estação, com geometria de página em estrutura e o logo existente. Os capítulos de stack e contato avançam no percurso para manter o espaçamento. A entrada pública aponta somente para o site online, sem link para o repositório privado. Referências ao primeiro site foram removidas da página e do README.
 
 Brave: quatro projetos nos dois idiomas, duas entradas no filtro Web, `open portal` abre o capítulo e os detalhes, quarto capítulo acessível pelo navegador lateral, modo estrutura mantido. Capturas em 1440, 390 e 320 pixels sem overflow horizontal. A experiência anterior no Jardim Anchieta permanece na página do site. Nenhum link para o repositório privado do portal ou para o antigo site removido.
 
 Fallback verificado em 390 pixels com WebGL bloqueado: quatro projetos, arte HTML do portal visível e logo decodificado, sem links para o código privado e sem exceções JavaScript.
+
+
+## Revisão de texto
+
+Travessões e slogans foram removidos dos textos em português e inglês, dos metadados e das mensagens do terminal. As descrições passaram a citar funções dos projetos, tecnologias e experiência profissional. O visual e os comandos foram preservados.
+
+Brave em 1440, 390 e 320 pixels: quatro projetos, modo estrutura, sem overflow horizontal, travessões no texto renderizado ou exceções JavaScript. Os comandos help, whoami e projects mantiveram o conteúdo esperado. README do perfil validado no renderizador do GitHub com quatro projetos e sem as seções que o proprietário removeu.

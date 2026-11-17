@@ -1,4 +1,4 @@
-# Portfólio pessoal — revisão de temas e interação
+# Portfólio pessoal: revisão de temas e interação
 
 ## Direção
 
@@ -40,7 +40,7 @@ A abertura passa a um painel arredondado com portal orbital, anéis e satélites
 Foi removida a alteração de layout disparada por `prefers-reduced-motion`, que escondia a cena e substituía a galeria pela disposição anterior. Também foi removido o botão de pausa. Quando WebGL não está disponível, a composição usa o visual animado por CSS, mantendo navegação e projetos acessíveis.
 
 
-## Revisão: ambiente contínuo — 17/11/2026
+## Revisão: ambiente contínuo: 17/11/2026
 
 O canvas deixa a composição do hero e permanece fixo atrás de todo o documento. Um relevo procedural e névoa conectam o núcleo segmentado, três estações de projetos e a constelação do contato. A abertura mostra primeiro o nome e depois o ambiente central, com informações nos cantos. A rolagem move a câmera entre paradas medidas no HTML, atualizadas por resize, mudança de fontes, filtros e abertura dos detalhes.
 

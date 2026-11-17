@@ -179,7 +179,7 @@ function runCommand(raw) {
       terminalLine(words('stack     linguagens e ferramentas', 'stack     languages and tools'));
       terminalLine(words('whoami    nome, graduação e trabalho', 'whoami    name, studies, and work'));
       terminalLine(words('contact   email e redes profissionais', 'contact   email and professional profiles'));
-      terminalLine(words('open yoshi | bot | confereai | portal — abrir projeto', 'open yoshi | bot | confereai | portal — open a project'));
+      terminalLine(words('open yoshi | bot | confereai | portal: abrir projeto', 'open yoshi | bot | confereai | portal: open a project'));
       terminalLine(words('clear     limpar terminal', 'clear     clear terminal'));
       break;
     case 'projects':
@@ -187,7 +187,7 @@ function runCommand(raw) {
       terminalLink('YOSHI Control Studio / Windows', '#project-yoshi');
       terminalLink('YoshiBot / Python + Discord', '#project-bot');
       terminalLink('ConfereAí / Node.js + Manifest V3', '#project-confere');
-      terminalLink('ConfereAí — Portal / HTML + CSS + JavaScript', '#project-confere-site');
+      terminalLink('ConfereAí (site) / HTML + CSS + JavaScript', '#project-confere-site');
       filterProjects('all');
       break;
     case 'stack':
@@ -198,9 +198,9 @@ function runCommand(raw) {
       break;
     case 'whoami':
       terminalLine('Savio Busana Beckhauser Junior', 'term-accent');
-      terminalLine(words('Estagiário de TI — Elastri Engenharia.', 'IT intern — Elastri Engenharia.'));
+      terminalLine(words('Estagiário de TI: Elastri Engenharia.', 'IT intern: Elastri Engenharia.'));
       terminalLine(words('Anteriormente: estágio de TI no Colégio Jardim Anchieta.', 'Previously: IT internship at Colégio Jardim Anchieta.'));
-      terminalLine(words('Ciência da Computação — Univali, em andamento.', 'Computer Science — Univali, in progress.'));
+      terminalLine(words('Ciência da Computação: Univali, em andamento.', 'Computer Science: Univali, in progress.'));
       break;
     case 'contact':
       terminalLink('busanasavio@gmail.com', 'mailto:busanasavio@gmail.com');
