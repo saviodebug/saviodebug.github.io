@@ -54,27 +54,20 @@ if (copyButton && navigator.clipboard?.writeText) {
   });
 }
 const host = document.querySelector('#code-scene');
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let sceneController = null;
 let sceneLoading = false;
 async function loadScene() {
-  if (!host || reducedMotion.matches || sceneController || sceneLoading) return;
+  if (!host || sceneController || sceneLoading) return;
   sceneLoading = true;
   try {
-    const { mountScene } = await import('./hero-scene.bundle.js?v=spatial-v1');
-    if (!reducedMotion.matches) sceneController = mountScene(host, { english });
+    const { mountScene } = await import('./hero-scene.bundle.js?v=orbital-v1');
+    sceneController = mountScene(host, { english });
   } catch (error) {
     // The poster remains visible and the content works if WebGL or its module is unavailable.
     host.dataset.state = 'fallback';
     console.info('3D unavailable; static artwork retained.', error.message);
   } finally { sceneLoading = false; }
 }
-reducedMotion.addEventListener('change', () => {
-  if (reducedMotion.matches) {
-    sceneController?.destroy();
-    sceneController = null;
-  } else loadScene();
-});
 loadScene();
 window.addEventListener('pagehide', () => {
   sceneController?.destroy();
@@ -96,7 +89,7 @@ function syncTheme() {
   themeToggle.setAttribute('aria-pressed', String(dark));
   themeToggle.setAttribute('aria-label', dark ? words('Ativar modo claro', 'Switch to light theme') : words('Ativar modo escuro', 'Switch to dark theme'));
   themeToggle.querySelector('span').textContent = dark ? words('Escuro', 'Dark') : words('Claro', 'Light');
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#101214' : '#f3f5f7');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#080b18' : '#f4f6ff');
 }
 if (themeToggle) {
   syncTheme();
@@ -139,12 +132,10 @@ const revealObserver = new IntersectionObserver(entries => {
   });
 }, { threshold: .08 });
 function configureReveal() {
-  document.body.classList.toggle('motion-enabled', !reducedMotion.matches);
-  if (reducedMotion.matches) revealTargets.forEach(target => target.classList.add('is-visible'));
+  document.body.classList.add('motion-enabled');
 }
 revealTargets.forEach(target => revealObserver.observe(target));
 configureReveal();
-reducedMotion.addEventListener('change', configureReveal);
 
 const terminalForm = document.querySelector('.terminal-form');
 const terminalOutput = document.querySelector('.terminal-output');
@@ -264,13 +255,12 @@ if (journey && stage && depthScene) {
 }
 function visitChapter(index) {
   const row = journeyRows[Math.max(0, Math.min(journeyRows.length - 1, index))];
-  if (row) { row.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'start' }); }
+  if (row) { row.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 }
 function refreshProjectJourney() {
   if (!journey || !stage) return;
-  const enabled = !reducedMotion.matches;
-  document.body.classList.toggle('journey-ready', enabled);
-  stage.hidden = !enabled;
+  document.body.classList.add('journey-ready');
+  stage.hidden = false;
   journeyRows = projectRows.filter(row => !row.hidden);
   const anchor = innerWidth <= 800 ? innerHeight * .67 : innerHeight * .52;
   journeyCenters = journeyRows.map(row => {
@@ -284,7 +274,7 @@ function scheduleJourney() {
 }
 function drawJourney() {
   journeyFrame = 0;
-  if (!stage || reducedMotion.matches || !journeyRows.length) return;
+  if (!stage || !journeyRows.length) return;
   const position = scrollY;
   let progress = 0;
   for (let i = 0; i < journeyCenters.length - 1; i++) {
@@ -322,7 +312,31 @@ if (journey) {
   layoutObserver.observe(journey);
   addEventListener('scroll', scheduleJourney, { passive: true });
   addEventListener('resize', refreshProjectJourney, { passive: true });
-  reducedMotion.addEventListener('change', refreshProjectJourney);
   document.querySelectorAll('.project-details').forEach(details => details.addEventListener('toggle', refreshProjectJourney));
   refreshProjectJourney();
+}
+
+// This CSS 3D object remains interactive even when a browser cannot create WebGL.
+const cube = document.querySelector('.stack-cube');
+const universe = document.querySelector('.stack-universe');
+let cubeX = 0, cubeY = 0;
+if (cube && universe) {
+  universe.addEventListener('pointermove', event => {
+    if (event.pointerType === 'touch') return;
+    const rect = universe.getBoundingClientRect();
+    cubeX = ((event.clientY - rect.top) / rect.height - .5) * -24;
+    cubeY = ((event.clientX - rect.left) / rect.width - .5) * 40;
+    cube.style.setProperty('--cube-x', `${cubeX}deg`);
+    cube.style.setProperty('--cube-y', `${cubeY}deg`);
+  }, { passive: true });
+  cube.addEventListener('keydown', event => {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+    event.preventDefault();
+    if (event.key === 'ArrowLeft') cubeY -= 20;
+    if (event.key === 'ArrowRight') cubeY += 20;
+    if (event.key === 'ArrowUp') cubeX -= 15;
+    if (event.key === 'ArrowDown') cubeX += 15;
+    cube.style.setProperty('--cube-x', `${cubeX}deg`);
+    cube.style.setProperty('--cube-y', `${cubeY}deg`);
+  });
 }

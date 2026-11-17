@@ -2,7 +2,7 @@
 
 ## Direção
 
-Página única por idioma, com escuro como padrão: grafite, branco e âmbar. O modo claro usa cinza frio e cobre, sem o bege anterior. A preferência é salva localmente e aplicada antes da primeira pintura. Cada projeto mantém suas cores oficiais.
+Página única por idioma, com escuro como padrão: preto azulado, azul e roxo. O modo claro usa tons frios claros, azul e violeta. A preferência é salva localmente e aplicada antes da primeira pintura. Cada projeto mantém suas cores oficiais.
 
 Nome completo: Savio Busana Beckhauser Junior. A marca curta usa Savio Junior. Projetos públicos e experiência de TI compõem o conteúdo; não foram inventadas datas, métricas ou atribuições de trabalho.
 
@@ -24,9 +24,17 @@ A abertura usa o nome em escala ampla, a escultura no centro e o contexto nas bo
 - Filtros de projetos: todos, desktop, automação e web.
 - Detalhes técnicos expansíveis com arquitetura e recursos comprovados pela documentação dos projetos.
 - Terminal local com `help`, `projects`, `stack`, `whoami`, `contact`, `open yoshi`, `open bot`, `open confereai` e `clear`. Entrada tratada como texto; sem eval nem comandos de sistema. Histórico com setas e log limitado.
-- Escultura 3D: arraste por mouse ou toque, rotação por teclado, reset com Home, modos sólido e estrutura, pausa e adaptação ao tema.
-- Entradas suaves ao rolar e indicador de progresso. Movimento reduzido preserva conteúdo visível e mostra o poster do 3D.
+- Escultura 3D: arraste por mouse ou toque, rotação por teclado, reset com Home, modos sólido e estrutura e adaptação ao tema.
+- Entradas suaves ao rolar e indicador de progresso. O layout e as animações são mantidos independentemente da preferência de movimento do sistema, conforme a direção solicitada pelo proprietário.
 
 ## Compatibilidade
 
 Português e inglês, URLs antigas redirecionadas para âncoras, fontes e Three.js locais. Projetos e detalhes continuam acessíveis sem JavaScript; filtros, terminal e controles só aparecem quando disponíveis.
+
+## Direção orbital e compatibilidade
+
+A referência de composição arredondada é https://www.seanhalpin.xyz/; a referência de experiência espacial interativa é https://bruno-simon.com/. A identidade, as formas 3D e o conteúdo são próprios do portfólio. A escolha de azul e roxo foi explícita do proprietário.
+
+A abertura passa a um painel arredondado com portal orbital, anéis e satélites com os logos reais dos projetos. A stack recebe um cubo interativo em CSS 3D; a galeria de projetos continua guiada pela rolagem. Nenhum novo renderizador foi adicionado: o portal e os satélites usam o contexto WebGL existente.
+
+Foi removida a alteração de layout disparada por `prefers-reduced-motion`, que escondia a cena e substituía a galeria pela disposição anterior. Também foi removido o botão de pausa. Quando WebGL não está disponível, a composição usa o visual animado por CSS, mantendo navegação e projetos acessíveis.
