@@ -1,55 +1,27 @@
-# Savio Busana Beckhauser Junior
+# Savio Junior
 
-Portfólio pessoal em página única, com temas claro e escuro, versões em português e inglês, logos oficiais dos projetos, tecnologias e trajetória profissional.
+Meu portfólio pessoal: um lugar para reunir os projetos que desenvolvo, contar um pouco da minha trajetória e mostrar no que venho trabalhando e estudando.
 
-## Site
+Sou Savio Busana Beckhauser Junior, estudante de Ciência da Computação na Univali e estagiário de TI na Elastri Engenharia. Antes, também atuei como estagiário de TI no Colégio Jardim Anchieta. Fora do trabalho e da graduação, desenvolvo aplicações, bots e automações para colocar meus conhecimentos em prática.
 
-https://saviodebug.github.io/
+[Acesse o portfólio](https://saviodebug.github.io/)
 
-## Desenvolvimento
+## Os projetos
 
-HTML, CSS e JavaScript nativos, sem etapa de build. Para abrir localmente:
+O site apresenta trabalhos com propostas diferentes:
 
-```sh
-python -m http.server 8000
-```
+- **[YOSHI Control Studio](https://github.com/saviodebug/Macro-Yoshi):** aplicação Windows para macros, atalhos e perfis personalizados, com editor Lua e distribuição de atualizações.
+- **[YoshiBot](https://github.com/saviodebug/YoshiBot):** bot para Discord desenvolvido em Python, com atendimento por tickets, moderação e integração com YouTube.
+- **[ConfereAí](https://github.com/saviodebug/ConfereAi):** extensão de navegador com uma API para apoiar a análise de sinais de risco em notícias e imagens.
 
-Acesse `http://localhost:8000/` ou `http://localhost:8000/en/`.
+Também mantenho o [primeiro site pessoal](https://github.com/saviodebug/personal-website) como registro da minha evolução em desenvolvimento web.
 
-## Estrutura
+## Sobre este site
 
-- `index.html` e `en/index.html`: páginas completas por idioma.
-- `assets/css/style.css`: sistema visual e responsividade.
-- `assets/js/main.js`: navegação, idioma, contato e carregamento progressivo.
-- `assets/js/hero-scene.js`: fonte da escultura de código em Three.js, com pausa e descarte de recursos.
-- `assets/js/hero-scene.bundle.js`: versão compactada usada pelo navegador.
-- `assets/vendor/three/`: Three.js 0.187.0 e licença MIT, hospedados localmente.
-- `assets/fonts/`: Instrument Sans e DM Mono, com licenças OFL.
-- `project/`, `skills/`, `contact/` e equivalentes em inglês: redirecionamentos das URLs antigas.
-- `docs/redesign.md`: direção e decisões do redesign.
+O portfólio aproxima os projetos da minha experiência em TI e dos estudos em desenvolvimento de software. Além de apresentar os resultados, traz contexto sobre o funcionamento de cada projeto, as tecnologias utilizadas e caminhos para conhecer o código ou testar as aplicações.
 
-## Atualizar o bundle 3D
+Está disponível em português e inglês, com navegação em uma única página e temas claro e escuro.
 
-Ao alterar `hero-scene.js`, a partir da raiz do repositório:
+## Contato
 
-```sh
-npm exec --yes --package=esbuild@0.27.0 -- esbuild assets/js/hero-scene.js --bundle --minify --format=esm --alias:three=./assets/vendor/three/three.module.js --legal-comments=inline --outfile=assets/js/hero-scene.bundle.js
-```
-
-A versão fixa do esbuild é uma ferramenta de manutenção; o site publicado não depende de npm ou de CDN.
-
-## Interações
-
-Filtro de projetos por área, detalhes técnicos expansíveis, terminal local navegável e tema salvo no navegador. A escultura 3D suporta arraste, teclado e alternância entre sólido e estrutura. O terminal interpreta apenas comandos conhecidos do portfólio e nunca executa código ou comandos do sistema.
-
-## Acessibilidade e movimento
-
-Conteúdo e links funcionam sem JavaScript. O 3D tem alternativa estática, respeita movimento reduzido, permite pausa e suspende a animação fora da tela ou em aba oculta. Fontes e biblioteca são servidas pelo próprio site, sem CDN em tempo de execução.
-
-## Conteúdo profissional
-
-Os cargos de estagiário de TI na Elastri Engenharia (atual) e no Colégio Jardim Anchieta (anterior) foram informados pelo proprietário. Não foram inferidas datas ou responsabilidades.
-
-## Licença
-
-Código próprio sob MIT. Dependências e fontes preservam suas licenças nos respectivos diretórios.
+[GitHub](https://github.com/saviodebug) · [LinkedIn](https://www.linkedin.com/in/saviojunior/) · [Email](mailto:busanasavio@gmail.com)
