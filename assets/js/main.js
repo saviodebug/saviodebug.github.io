@@ -57,8 +57,6 @@ const visual = document.querySelector('.hero-visual');
 if (visual) {
   document.body.prepend(visual);
   visual.classList.add('world-viewport');
-  const controls = visual.querySelector('.scene-tools');
-  if (controls) { controls.classList.add('world-tools'); document.body.append(controls); }
 }
 const host = document.querySelector('#code-scene');
 let sceneController = null;
@@ -67,7 +65,7 @@ async function loadScene() {
   if (!host || sceneController || sceneLoading) return;
   sceneLoading = true;
   try {
-    const { mountScene } = await import('./hero-scene.bundle.js?v=world-v1');
+    const { mountScene } = await import('./hero-scene.bundle.js?v=world-wire-v1');
     sceneController = mountScene(host, { english });
   } catch (error) {
     // The poster remains visible and the content works if WebGL or its module is unavailable.

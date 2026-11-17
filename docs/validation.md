@@ -61,3 +61,10 @@ Sintaxe das três entradas JavaScript e bundle, IDs únicos, âncoras, assets do
 Auditoria de carregamento final em 1440 e 390 pixels: 0 falhas, 3 avisos. Cerca de 843–859 KiB transferidos no servidor local sem gzip, 18 requisições, um contexto WebGL vivo no início e no fim, nenhum pedido quebrado. Avisos: tamanho de JavaScript analisado (o motor Three.js local) e dimensões declaradas do SVG de fallback no celular; o SVG é vetorial e não exige bitmap nessa resolução. FCP/LCP locais de aproximadamente 0,2 s foram medidos com WebGL bloqueado pelo próprio auditor e não representam desempenho de produção nem compilação de shaders em GPU. A execução WebGL por SwiftShader foi registrada separadamente pelo auditor e não é usada para prometer 60 FPS.
 
 Último teste de interação utilizou eventos de mouse do navegador: o botão Estrutura estava acima do conteúdo e recebeu o clique real, alterando o material. Retorno por scroll/toque, inglês e fallback passaram novamente, sem exceções. A prévia social foi atualizada com uma captura real da nova abertura.
+
+
+## Estrutura como apresentação única — 17/11/2026
+
+O proprietário escolheu a apresentação em estrutura. Os materiais usam wireframe desde a primeira renderização, com os mesmos elementos que o seletor anterior alterava. Logos, partículas e anéis preservam sua identidade. O seletor Sólido/Estrutura e seus eventos foram removidos dos dois idiomas; alternar o tema mantém a estrutura. Assets receberam nova versão para invalidar o cache.
+
+Brave: chamadas reais de desenho em linhas confirmadas em português e inglês, nenhum botão de modo no DOM, estrutura mantida ao mudar para o tema claro e nenhuma exceção JavaScript. Prévia social atualizada com captura real. Sintaxe e diff verificados.

@@ -3,7 +3,6 @@ import * as THREE from 'three';
 // One continuous world: the document supplies the stops, the camera connects them.
 export function mountScene(host, { english = false } = {}) {
   const visual = host.closest('.hero-visual');
-  const tools = document.querySelector('.world-tools');
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ alpha: false, antialias: true, powerPreference: 'high-performance' });
@@ -316,14 +315,6 @@ export function mountScene(host, { english = false } = {}) {
     else if (event.key === 'ArrowRight') yaw += .2;
     else pitch = THREE.MathUtils.clamp(pitch + (event.key === 'ArrowUp' ? -.15 : .15), -.5, .5);
   }
-  function mode(event) {
-    const target = event.target.closest('[data-scene-mode]');
-    if (!target) return;
-    const wire = target.dataset.sceneMode === 'wire';
-    [metal, edge, floorMaterial, ...stations.map(s => s.sculpture.children[0].material)].forEach(material => { material.wireframe = wire; });
-    tools.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button === target)));
-    host.dataset.mode = wire ? 'wire' : 'solid';
-  }
   function theme() {
     const light = document.documentElement.dataset.theme === 'light';
     scene.background.copy(light ? lightColor : darkColor);
@@ -362,9 +353,8 @@ export function mountScene(host, { english = false } = {}) {
   document.addEventListener('portfolio:constellation', morph);
   document.addEventListener('portfolio:reenter', reenter);
   document.addEventListener('visibilitychange', sync);
-  tools?.addEventListener('click', mode);
-  if (tools) tools.hidden = false;
-  host.dataset.mode = 'solid';
+  [metal, edge, floorMaterial, ...stations.map(station => station.sculpture.children[0].material)].forEach(material => { material.wireframe = true; });
+  host.dataset.mode = 'wire';
   resize(); theme(); progress = scrollY;
   visual.classList.add('scene-ready');
   document.body.classList.add('world-rendered');
@@ -383,7 +373,6 @@ export function mountScene(host, { english = false } = {}) {
     document.removeEventListener('portfolio:constellation', morph);
     document.removeEventListener('portfolio:reenter', reenter);
     document.removeEventListener('visibilitychange', sync);
-    tools?.removeEventListener('click', mode);
     renderer.domElement.removeEventListener('webglcontextlost', lost);
     const geometries = new Set(), materials = new Set();
     scene.traverse(object => {
@@ -396,7 +385,6 @@ export function mountScene(host, { english = false } = {}) {
     renderer.dispose(); renderer.domElement.remove();
     visual.classList.remove('scene-ready');
     document.body.classList.remove('world-rendered');
-    if (tools) tools.hidden = true;
   }
   return { destroy };
 }
