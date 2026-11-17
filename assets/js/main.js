@@ -53,6 +53,13 @@ if (copyButton && navigator.clipboard?.writeText) {
     }
   });
 }
+const visual = document.querySelector('.hero-visual');
+if (visual) {
+  document.body.prepend(visual);
+  visual.classList.add('world-viewport');
+  const controls = visual.querySelector('.scene-tools');
+  if (controls) { controls.classList.add('world-tools'); document.body.append(controls); }
+}
 const host = document.querySelector('#code-scene');
 let sceneController = null;
 let sceneLoading = false;
@@ -60,7 +67,7 @@ async function loadScene() {
   if (!host || sceneController || sceneLoading) return;
   sceneLoading = true;
   try {
-    const { mountScene } = await import('./hero-scene.bundle.js?v=cinematic-v1');
+    const { mountScene } = await import('./hero-scene.bundle.js?v=world-v1');
     sceneController = mountScene(host, { english });
   } catch (error) {
     // The poster remains visible and the content works if WebGL or its module is unavailable.
@@ -89,7 +96,7 @@ function syncTheme() {
   themeToggle.setAttribute('aria-pressed', String(dark));
   themeToggle.setAttribute('aria-label', dark ? words('Ativar modo claro', 'Switch to light theme') : words('Ativar modo escuro', 'Switch to dark theme'));
   themeToggle.querySelector('span').textContent = dark ? words('Escuro', 'Dark') : words('Claro', 'Light');
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#080b18' : '#f4f6ff');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#050913' : '#e5eaf4');
 }
 if (themeToggle) {
   syncTheme();
@@ -237,106 +244,14 @@ if (terminalForm && terminalInput && terminalOutput) {
   terminalOutput.addEventListener('click', event => { if (event.target.closest('a[href^="#project-"]')) filterProjects('all'); });
 }
 
-// One spatial project scene follows native scrolling. The articles remain the content source.
-const journey = document.querySelector('.project-journey');
-const stage = document.querySelector('.project-stage');
-const depthScene = document.querySelector('.project-depth-scene');
-const depthCards = [];
-let journeyRows = [], journeyCenters = [], journeyFrame = 0, journeyIndex = 0;
-let journeyProgress = 0, journeyLastTime = 0, journeyUIInvalidated = true;
-if (journey && stage && depthScene) {
-  projectRows.forEach(row => {
-    const card = document.createElement('a');
-    card.className = 'depth-card';
-    card.href = `#${row.id}`;
-    card.setAttribute('aria-label', row.querySelector('h3').textContent);
-    const art = row.querySelector('.project-art').cloneNode(true);
-    art.querySelectorAll('img').forEach(img => { img.alt = ''; });
-    card.append(art);
-    depthScene.append(card);
-    depthCards.push({ card, row });
-  });
-  stage.querySelector('.stage-previous').addEventListener('click', () => visitChapter(journeyIndex - 1));
-  stage.querySelector('.stage-next').addEventListener('click', () => visitChapter(journeyIndex + 1));
-}
-function visitChapter(index) {
-  const row = journeyRows[Math.max(0, Math.min(journeyRows.length - 1, index))];
-  if (row) { row.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-}
+// The canvas owns the spatial journey; HTML remains the source for content and links.
 function refreshProjectJourney() {
-  if (!journey || !stage) return;
-  document.body.classList.add('journey-ready');
-  stage.hidden = false;
-  journeyRows = projectRows.filter(row => !row.hidden);
-  journeyProgress = Math.min(journeyProgress, Math.max(0, journeyRows.length - 1));
-  journeyUIInvalidated = true;
-  const anchor = innerWidth <= 800 ? innerHeight * .67 : innerHeight * .52;
-  journeyCenters = journeyRows.map(row => {
-    const rect = row.getBoundingClientRect();
-    return rect.top + scrollY + rect.height * .45 - anchor;
-  });
-  scheduleJourney();
+  document.body.classList.add('world-ready');
+  document.dispatchEvent(new Event('portfolio:layout'));
 }
-function scheduleJourney() {
-  if (!journeyFrame) journeyFrame = requestAnimationFrame(drawJourney);
-}
-function drawJourney(now) {
-  journeyFrame = 0;
-  if (!stage || !journeyRows.length) return;
-  const position = scrollY;
-  let targetProgress = 0;
-  for (let i = 0; i < journeyCenters.length - 1; i++) {
-    if (position >= journeyCenters[i]) {
-      targetProgress = i + Math.max(0, Math.min(1, (position - journeyCenters[i]) / Math.max(1, journeyCenters[i + 1] - journeyCenters[i])));
-    }
-  }
-  const deltaTime = Math.min((now - (journeyLastTime || now - 1000 / 60)) / 1000, .05);
-  journeyLastTime = now;
-  journeyProgress += (targetProgress - journeyProgress) * (1 - Math.exp(-14 * deltaTime));
-  if (Math.abs(targetProgress - journeyProgress) < .0005) journeyProgress = targetProgress;
-  const progress = journeyProgress;
-  const previousIndex = journeyIndex;
-  journeyIndex = Math.max(0, Math.min(journeyRows.length - 1, Math.round(progress)));
-  const updateUI = journeyUIInvalidated || previousIndex !== journeyIndex;
-  journeyUIInvalidated = false;
-  const compact = innerWidth <= 800;
-  depthCards.forEach(({ card, row }) => {
-    const index = journeyRows.indexOf(row);
-    card.hidden = index === -1;
-    if (index === -1) return;
-    const delta = index - progress;
-    const distance = Math.abs(delta);
-    const x = delta * (compact ? 38 : 62);
-    const y = delta * (compact ? 15 : 28);
-    const z = -distance * (compact ? 150 : 210);
-    card.style.transform = `translate3d(${x}px,${y}px,${z}px) rotateY(${-10 - delta * 17}deg) rotateX(${5 + distance * 3}deg) rotateZ(${delta * 7 - 3}deg)`;
-    card.style.opacity = distance < .5 ? '1' : String(Math.max(.12, 1 - distance * .43));
-    card.style.zIndex = String(10 - Math.round(distance * 3));
-    const active = row === journeyRows[journeyIndex];
-    if (updateUI) {
-      card.style.pointerEvents = active ? 'auto' : 'none';
-      card.tabIndex = active ? 0 : -1;
-      card.setAttribute('aria-hidden', String(!active));
-      row.classList.toggle('is-active', active);
-    }
-  });
-  if (updateUI) {
-    stage.querySelector('.stage-project-name').textContent = journeyRows[journeyIndex].querySelector('h3').textContent;
-    stage.querySelector('.stage-position').textContent = `${String(journeyIndex + 1).padStart(2, '0')} — ${String(journeyRows.length).padStart(2, '0')}`;
-    stage.querySelector('.stage-previous').disabled = journeyIndex === 0;
-    stage.querySelector('.stage-next').disabled = journeyIndex === journeyRows.length - 1;
-  }
-  if (journeyProgress !== targetProgress) journeyFrame = requestAnimationFrame(drawJourney);
-  else journeyLastTime = 0;
-}
-if (journey) {
-  const layoutObserver = new ResizeObserver(refreshProjectJourney);
-  layoutObserver.observe(journey);
-  addEventListener('scroll', scheduleJourney, { passive: true });
-  addEventListener('resize', refreshProjectJourney, { passive: true });
-  document.querySelectorAll('.project-details').forEach(details => details.addEventListener('toggle', refreshProjectJourney));
-  refreshProjectJourney();
-}
+addEventListener('resize', refreshProjectJourney, { passive: true });
+document.querySelectorAll('.project-details').forEach(details => details.addEventListener('toggle', refreshProjectJourney));
+refreshProjectJourney();
 
 // This CSS 3D object remains interactive even when a browser cannot create WebGL.
 const cube = document.querySelector('.stack-cube');
@@ -430,6 +345,8 @@ const atEnd = () => scrollY + innerHeight >= document.documentElement.scrollHeig
 function returnThroughPortal() {
   if (loopBusy) return;
   loopBusy = true;
+  document.body.classList.add('world-returning');
+  document.dispatchEvent(new Event('portfolio:reenter'));
   loopCurtain.classList.add('is-active');
   setTimeout(() => {
     const root = document.documentElement;
@@ -441,8 +358,9 @@ function returnThroughPortal() {
     root.classList.add('intro-pending');
     playOpening();
     loopCurtain.classList.remove('is-active');
-  }, 650);
-  setTimeout(() => { loopBusy = false; bottomSince = 0; loopDistance = 0; }, 3200);
+    document.body.classList.remove('world-returning');
+  }, 1300);
+  setTimeout(() => { loopBusy = false; bottomSince = 0; loopDistance = 0; }, 4300);
 }
 addEventListener('scroll', () => {
   if (!atEnd()) { bottomSince = 0; loopDistance = 0; }
@@ -465,4 +383,31 @@ addEventListener('touchend', event => {
 }, { passive: true });
 document.querySelectorAll('.footer-line a[href="#inicio"]').forEach(link => {
   link.addEventListener('click', event => { event.preventDefault(); returnThroughPortal(); });
+});
+
+const worldRail = document.createElement('nav');
+worldRail.className = 'world-rail';
+worldRail.setAttribute('aria-label', words('Etapas da viagem', 'Journey chapters'));
+[['inicio','00'],['project-yoshi','01'],['project-bot','02'],['project-confere','03'],['stack','04'],['sobre','05'],['contato','06']].forEach(([id,number]) => {
+  const target = document.getElementById(id);
+  const link = document.createElement('a');
+  link.href = `#${id}`;
+  link.textContent = number;
+  link.setAttribute('aria-label', target?.querySelector('h1,h2,h3')?.textContent || id);
+  worldRail.append(link);
+});
+document.body.append(worldRail);
+const chapterObserver = new IntersectionObserver(entries => {
+  const current = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio-a.intersectionRatio)[0];
+  if (!current) return;
+  worldRail.querySelectorAll('a').forEach(link => {
+    if (link.hash === `#${current.target.id}`) link.setAttribute('aria-current','step');
+    else link.removeAttribute('aria-current');
+  });
+}, {rootMargin:'-20% 0px -30% 0px',threshold:[0,.2,.5]});
+worldRail.querySelectorAll('a').forEach(link => chapterObserver.observe(document.getElementById(link.hash.slice(1))));
+document.querySelectorAll('.social-links a,.email-link').forEach((link,index) => {
+  ['pointerenter','focus'].forEach(event => link.addEventListener(event, () => {
+    document.dispatchEvent(new CustomEvent('portfolio:constellation',{detail:index}));
+  }));
 });
