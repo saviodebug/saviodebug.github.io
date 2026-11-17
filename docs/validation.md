@@ -1,30 +1,25 @@
-# Validação do redesign — 16/11/2026
+# Validação — temas e interações, 16/11/2026
 
-## Verificações realizadas
+## Navegador real
 
-- HTML, IDs, âncoras e referências a arquivos locais conferidos em português e inglês.
-- JavaScript autoral e bundle verificados com `node --check`; `git diff --check` sem problemas.
-- Navegador real em 1440, 1024, 820, 768, 390 e 320 pixels: sem rolagem horizontal, fontes locais carregadas e imagens decodificadas.
-- Menu móvel: abertura, fechamento ao navegar e fechamento com Escape.
-- 3D: pausa e retomada manual; suspensão fora da tela; remoção do canvas com movimento reduzido; reconstrução de uma única cena ao reativar movimento.
-- Falha deliberada do shader e WebGL indisponível: poster estático visível e navegação funcional.
-- Inglês: estilos, nome e experiência profissional presentes.
-- Rotas antigas verificadas: `/project/` para `/#projetos`, `/en/skills/` para `/en/#stack`, `/contact/` para `/#contato`.
-- Capturas revisadas em desktop, celular e tablet. A composição de tablet foi empilhada e o enquadramento da câmera ajustado para preservar o símbolo inteiro.
-- Prévia social gerada de uma captura real do site.
+Os temas escuro e claro foram verificados nas larguras 1440, 1024, 820, 768, 390 e 320 pixels. Os 12 cenários não apresentaram rolagem horizontal nem imagens quebradas. Não houve exceções JavaScript nos fluxos testados.
 
-## Auditoria visual automatizada
+Verificações funcionais:
 
-O checker comercial do design-taste-frontend foi executado em cinco larguras. Não passou integralmente: exige o DOM e a composição fechada do kit. O portfólio usa composição autoral, seções de altura natural, marca em duas linhas e ilustrações em CSS. Esses desvios são intencionais, não equivalem a regressões funcionais.
+- Tema inicial escuro, troca para claro e preferência preservada após recarregar e mudar para inglês.
+- Filtro Web exibe somente ConfereAí; Todos restaura os três projetos.
+- Detalhes do ConfereAí abrem e exibem a arquitetura real.
+- Terminal: identidade profissional, links de três projetos, comando desconhecido tratado como texto, histórico, abertura do projeto e limpeza do log.
+- 3D: alternância entre estrutura e sólido, foco e controles por teclado. Arraste implementado com pointer capture e `touch-action: pan-y`, preservando rolagem vertical no toque.
+- Menu móvel abre e fecha ao navegar.
+- Movimento reduzido remove o canvas, mantém o poster e oculta controles de 3D.
+- Inglês mantém tema, terminal, filtros e logo oficial.
+- HTML, IDs, arquivos, âncoras, srcset, sintaxe JavaScript e diff conferidos.
 
-Foram corrigidos os problemas concretos encontrados: contraste do separador de idiomas, indicador de experiência e underscore do rodapé; enquadramento do 3D em tablet; fallback também quando um shader não compila. As marcações restantes de inclinação e sobreposição correspondem aos desenhos decorativos de papel e selo. Os avisos de shader lint referem-se aos shaders internos do Three.js; a compilação e a falha real foram testadas no navegador.
+Capturas revisadas em desktop escuro e celular claro/escuro. A prévia social é uma captura real do tema padrão.
 
-## Desempenho e limites
+## Limites
 
-A medição local em Chromium/SwiftShader encontrou um único contexto WebGL, nenhuma requisição quebrada e layout shift de 0,002 em desktop e 0 em celular. O JavaScript compactado permanece acima do orçamento de aviso de 500 KiB do kit, por incluir o renderizador 3D. O bundle usa aproximadamente 148 KB com gzip; a foto principal foi reduzida de 534 KB para 46 KB, com variante menor para celular.
+Teste realizado em Chromium com renderização WebGL por software. Não representa avaliação de GPU ou toque em aparelho físico. A identidade dos projetos foi preservada; o ícone do YoshiBot é explicitamente o da comunidade associada.
 
-São medições locais de laboratório, sem representar velocidade de rede real nem GPU de um aparelho físico. Não foi realizado teste prolongado de memória em dispositivos físicos.
-
-## Conteúdo
-
-Nome completo e cargos de TI confirmados pelo proprietário na conversa. O endereço do LinkedIn foi encontrado no perfil público do GitHub; a página do LinkedIn bloqueou a leitura automática. Não foram inventadas datas, atividades profissionais ou métricas de clientes.
+Os cargos de TI foram confirmados pelo proprietário. O LinkedIn bloqueou leitura automática na revisão anterior; não foram inferidas datas ou responsabilidades.

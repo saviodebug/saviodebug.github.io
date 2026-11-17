@@ -1,6 +1,6 @@
 # Savio Busana Beckhauser Junior
 
-Portfólio pessoal em página única, com versões em português e inglês, projetos públicos, tecnologias e trajetória profissional.
+Portfólio pessoal em página única, com temas claro e escuro, versões em português e inglês, logos oficiais dos projetos, tecnologias e trajetória profissional.
 
 ## Site
 
@@ -37,6 +37,10 @@ npm exec --yes --package=esbuild@0.27.0 -- esbuild assets/js/hero-scene.js --bun
 ```
 
 A versão fixa do esbuild é uma ferramenta de manutenção; o site publicado não depende de npm ou de CDN.
+
+## Interações
+
+Filtro de projetos por área, detalhes técnicos expansíveis, terminal local navegável e tema salvo no navegador. A escultura 3D suporta arraste, teclado e alternância entre sólido e estrutura. O terminal interpreta apenas comandos conhecidos do portfólio e nunca executa código ou comandos do sistema.
 
 ## Acessibilidade e movimento
 

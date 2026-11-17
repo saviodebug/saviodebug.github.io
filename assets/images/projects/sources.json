@@ -1,0 +1,20 @@
+{
+  "confereai": {
+    "source": "https://github.com/saviodebug/ConfereAi/tree/main/extensao/assets",
+    "original": "logo-geral.png",
+    "sha256": "12e555f75655ca1a407d1992e2889a1bcb8e0c2e2821d072d36419029c857745",
+    "use": "Logo oficial, apenas redimensionado e convertido para WebP."
+  },
+  "yoshi-studio": {
+    "source": "Arquivos de marca fornecidos pelo repositório do proprietário",
+    "files": [
+      "yoshi-logo.svg",
+      "yoshi-mark.png"
+    ],
+    "use": "Somente identidade visual; nenhum código privado incorporado."
+  },
+  "yoshi-community": {
+    "source": "https://discord.gg/2AHxXhb8Sh",
+    "use": "Ícone oficial da comunidade Yoshizinho City, associada ao YoshiBot. Não apresentado como avatar oficial do bot."
+  }
+}

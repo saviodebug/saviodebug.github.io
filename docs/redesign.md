@@ -1,23 +1,28 @@
-# Portfólio em página única
-
-Portfólio pessoal de desenvolvimento de software, com foco em projetos públicos e experiência de TI.
+# Portfólio pessoal — revisão de temas e interação
 
 ## Direção
 
-Página única por idioma, com navegação por âncoras: apresentação, projetos, tecnologias, trajetória e contato. Fundo mineral claro, texto escuro, azul de blueprint e tipografia Instrument Sans com DM Mono. O nome completo é Savio Busana Beckhauser Junior; a marca curta usa Savio Junior.
+Página única por idioma, com escuro como padrão: grafite, branco e âmbar. O modo claro usa cinza frio e cobre, sem o bege anterior. A preferência é salva localmente e aplicada antes da primeira pintura. Cada projeto mantém suas cores oficiais.
 
-A abertura traz uma escultura 3D original do símbolo de código, com reflexos de estúdio, movimento leve e resposta ao ponteiro. Three.js local, versão fixada, uma única cena, pausa manual, suspensão fora da tela e alternativa estática quando WebGL ou movimento não estiverem disponíveis. Conteúdo e navegação independem do canvas.
+Nome completo: Savio Busana Beckhauser Junior. A marca curta usa Savio Junior. Projetos públicos e experiência de TI compõem o conteúdo; não foram inventadas datas, métricas ou atribuições de trabalho.
 
-## Conteúdo
+## Identidade dos projetos
 
-- YOSHI Control Studio, YoshiBot, ConfereAí e portfólio atual, com links para repositórios públicos.
-- Site pessoal anterior preservado como histórico de desenvolvimento web.
-- Tecnologias agrupadas por aplicação; Java e C++ identificados como estudos.
-- Estagiário de TI na Elastri Engenharia, atualmente; estágio anterior no Colégio Jardim Anchieta. Cargos fornecidos pelo proprietário, sem datas ou atribuições inventadas.
-- Ciência da Computação na Univali. LinkedIn, GitHub e contatos públicos já existentes.
+- ConfereAí: logo real de `extensao/assets/logo-geral.png` do repositório público, convertido para WebP sem redesenho.
+- YOSHI Studio: ícone e wordmark originais de marca do proprietário. Nenhum código privado incorporado.
+- YoshiBot: imagem pública da comunidade Yoshizinho City; identificada como comunidade, sem alegar que seja o avatar do bot.
+- Procedência dos arquivos em `assets/images/projects/sources.json`.
 
-## Compatibilidade e verificação
+As ilustrações inventadas de robô, selo e letra Y foram substituídas pelos ativos reais.
 
-Português e inglês preservados. Rotas antigas encaminham para a seção correspondente, sem perder links já divulgados. Verificar âncoras, menu móvel, navegação por teclado, alteração de idioma, pausa do 3D, movimento reduzido, ausência de WebGL, ausência de JavaScript, console e diferentes larguras de tela.
+## Interações
 
-A direção adapta o sistema design-taste-frontend a um portfólio autoral. A cena original substitui os objetos genéricos do kit; não há preços, métricas comerciais ou depoimentos fictícios. Os projetos mantêm altura de leitura natural em telas pequenas.
+- Filtros de projetos: todos, desktop, automação e web.
+- Detalhes técnicos expansíveis com arquitetura e recursos comprovados pela documentação dos projetos.
+- Terminal local com `help`, `projects`, `stack`, `whoami`, `contact`, `open yoshi`, `open bot`, `open confereai` e `clear`. Entrada tratada como texto; sem eval nem comandos de sistema. Histórico com setas e log limitado.
+- Escultura 3D: arraste por mouse ou toque, rotação por teclado, reset com Home, modos sólido e estrutura, pausa e adaptação ao tema.
+- Entradas suaves ao rolar e indicador de progresso. Movimento reduzido preserva conteúdo visível e mostra o poster do 3D.
+
+## Compatibilidade
+
+Português e inglês, URLs antigas redirecionadas para âncoras, fontes e Three.js locais. Projetos e detalhes continuam acessíveis sem JavaScript; filtros, terminal e controles só aparecem quando disponíveis.
