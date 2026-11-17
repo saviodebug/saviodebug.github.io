@@ -23,3 +23,7 @@ Capturas revisadas em desktop escuro e celular claro/escuro. A prévia social é
 Teste realizado em Chromium com renderização WebGL por software. Não representa avaliação de GPU ou toque em aparelho físico. A identidade dos projetos foi preservada; o ícone do YoshiBot é explicitamente o da comunidade associada.
 
 Os cargos de TI foram confirmados pelo proprietário. O LinkedIn bloqueou leitura automática na revisão anterior; não foram inferidas datas ou responsabilidades.
+
+## Revisão espacial
+
+Composição da abertura centralizada, símbolo 3D articulado pela rolagem e projetos apresentados em uma pilha de cartões com perspectiva. Capturas em posições reais de cada capítulo verificam a cena fixa acompanhando o texto. Controles de anterior e próximo, filtros e detalhes continuam associados aos artigos originais. Em movimento reduzido, os artigos apresentam suas imagens diretamente, preservando todo o conteúdo.

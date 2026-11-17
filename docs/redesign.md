@@ -15,6 +15,10 @@ Nome completo: Savio Busana Beckhauser Junior. A marca curta usa Savio Junior. P
 
 As ilustrações inventadas de robô, selo e letra Y foram substituídas pelos ativos reais.
 
+## Layout espacial
+
+A abertura usa o nome em escala ampla, a escultura no centro e o contexto nas bordas. O símbolo se separa conforme a rolagem avança. Os projetos deixam a sequência de linhas com imagens repetidas: uma cena com cartões em perspectiva acompanha três capítulos de texto. A rolagem é nativa; os controles de anterior e próximo navegam entre capítulos. A stack passa a quatro colunas no desktop, com profundidade ao interagir.
+
 ## Interações
 
 - Filtros de projetos: todos, desktop, automação e web.

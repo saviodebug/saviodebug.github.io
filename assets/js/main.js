@@ -61,7 +61,7 @@ async function loadScene() {
   if (!host || reducedMotion.matches || sceneController || sceneLoading) return;
   sceneLoading = true;
   try {
-    const { mountScene } = await import('./hero-scene.bundle.js?v=studio-v3');
+    const { mountScene } = await import('./hero-scene.bundle.js?v=spatial-v1');
     if (!reducedMotion.matches) sceneController = mountScene(host, { english });
   } catch (error) {
     // The poster remains visible and the content works if WebGL or its module is unavailable.
@@ -121,6 +121,7 @@ function filterProjects(category) {
   });
   filterGroup.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === category)));
   document.querySelector('.project-count').textContent = english ? `${count} public project${count === 1 ? '' : 's'}` : `${count} projeto${count === 1 ? '' : 's'} público${count === 1 ? '' : 's'}`;
+  refreshProjectJourney();
 }
 if (filterGroup) {
   filterGroup.hidden = false;
@@ -238,4 +239,90 @@ if (terminalForm && terminalInput && terminalOutput) {
     terminalInput.value = commandHistory[historyPosition] || '';
   });
   terminalOutput.addEventListener('click', event => { if (event.target.closest('a[href^="#project-"]')) filterProjects('all'); });
+}
+
+// One spatial project scene follows native scrolling. The articles remain the content source.
+const journey = document.querySelector('.project-journey');
+const stage = document.querySelector('.project-stage');
+const depthScene = document.querySelector('.project-depth-scene');
+const depthCards = [];
+let journeyRows = [], journeyCenters = [], journeyFrame = 0, journeyIndex = 0;
+if (journey && stage && depthScene) {
+  projectRows.forEach(row => {
+    const card = document.createElement('a');
+    card.className = 'depth-card';
+    card.href = `#${row.id}`;
+    card.setAttribute('aria-label', row.querySelector('h3').textContent);
+    const art = row.querySelector('.project-art').cloneNode(true);
+    art.querySelectorAll('img').forEach(img => { img.alt = ''; });
+    card.append(art);
+    depthScene.append(card);
+    depthCards.push({ card, row });
+  });
+  stage.querySelector('.stage-previous').addEventListener('click', () => visitChapter(journeyIndex - 1));
+  stage.querySelector('.stage-next').addEventListener('click', () => visitChapter(journeyIndex + 1));
+}
+function visitChapter(index) {
+  const row = journeyRows[Math.max(0, Math.min(journeyRows.length - 1, index))];
+  if (row) { row.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'start' }); }
+}
+function refreshProjectJourney() {
+  if (!journey || !stage) return;
+  const enabled = !reducedMotion.matches;
+  document.body.classList.toggle('journey-ready', enabled);
+  stage.hidden = !enabled;
+  journeyRows = projectRows.filter(row => !row.hidden);
+  const anchor = innerWidth <= 800 ? innerHeight * .67 : innerHeight * .52;
+  journeyCenters = journeyRows.map(row => {
+    const rect = row.getBoundingClientRect();
+    return rect.top + scrollY + rect.height * .45 - anchor;
+  });
+  scheduleJourney();
+}
+function scheduleJourney() {
+  if (!journeyFrame) journeyFrame = requestAnimationFrame(drawJourney);
+}
+function drawJourney() {
+  journeyFrame = 0;
+  if (!stage || reducedMotion.matches || !journeyRows.length) return;
+  const position = scrollY;
+  let progress = 0;
+  for (let i = 0; i < journeyCenters.length - 1; i++) {
+    if (position >= journeyCenters[i]) {
+      progress = i + Math.max(0, Math.min(1, (position - journeyCenters[i]) / Math.max(1, journeyCenters[i + 1] - journeyCenters[i])));
+    }
+  }
+  journeyIndex = Math.max(0, Math.min(journeyRows.length - 1, Math.round(progress)));
+  const compact = innerWidth <= 800;
+  depthCards.forEach(({ card, row }) => {
+    const index = journeyRows.indexOf(row);
+    card.hidden = index === -1;
+    if (index === -1) return;
+    const delta = index - progress;
+    const distance = Math.abs(delta);
+    const x = delta * (compact ? 38 : 62);
+    const y = delta * (compact ? 15 : 28);
+    const z = -distance * (compact ? 150 : 210);
+    card.style.transform = `translate3d(${x}px,${y}px,${z}px) rotateY(${-10 - delta * 17}deg) rotateX(${5 + distance * 3}deg) rotateZ(${delta * 7 - 3}deg)`;
+    card.style.opacity = distance < .5 ? '1' : String(Math.max(.12, 1 - distance * .43));
+    card.style.zIndex = String(10 - Math.round(distance * 3));
+    const active = row === journeyRows[journeyIndex];
+    card.style.pointerEvents = active ? 'auto' : 'none';
+    card.tabIndex = active ? 0 : -1;
+    card.setAttribute('aria-hidden', String(!active));
+    row.classList.toggle('is-active', active);
+  });
+  stage.querySelector('.stage-project-name').textContent = journeyRows[journeyIndex].querySelector('h3').textContent;
+  stage.querySelector('.stage-position').textContent = `${String(journeyIndex + 1).padStart(2, '0')} — ${String(journeyRows.length).padStart(2, '0')}`;
+  stage.querySelector('.stage-previous').disabled = journeyIndex === 0;
+  stage.querySelector('.stage-next').disabled = journeyIndex === journeyRows.length - 1;
+}
+if (journey) {
+  const layoutObserver = new ResizeObserver(refreshProjectJourney);
+  layoutObserver.observe(journey);
+  addEventListener('scroll', scheduleJourney, { passive: true });
+  addEventListener('resize', refreshProjectJourney, { passive: true });
+  reducedMotion.addEventListener('change', refreshProjectJourney);
+  document.querySelectorAll('.project-details').forEach(details => details.addEventListener('toggle', refreshProjectJourney));
+  refreshProjectJourney();
 }

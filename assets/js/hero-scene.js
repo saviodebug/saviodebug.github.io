@@ -50,8 +50,8 @@ export function mountScene(host, { english = false } = {}) {
     return mesh;
   }
   const bracket = [[.35, 1],[-.55, .16],[-.55, -.16],[.35,-1],[.67,-.65],[-.02,0],[.67,.65]];
-  extruded(bracket, chrome, -1.35, -.05);
-  extruded(bracket.map(([x,y]) => [-x,y]), chrome, 1.35, -.05);
+  const leftBracket = extruded(bracket, chrome, -1.35, -.05);
+  const rightBracket = extruded(bracket.map(([x,y]) => [-x,y]), chrome, 1.35, -.05);
   const slash = extruded([[-.14,-1.1],[.22,-1.1],[.65,1.1],[.29,1.1]], accentMaterial, 0, .24);
   // The thin inset edges make the symbol read as a manufactured object, not a flat glyph.
   const wireGeometry = new THREE.EdgesGeometry(slash.geometry, 24);
@@ -104,6 +104,12 @@ export function mountScene(host, { english = false } = {}) {
     sculpture.rotation.y += (targetY - sculpture.rotation.y) * .06;
     sculpture.rotation.z = -.14 + Math.sin(elapsed * .25) * .04;
     sculpture.position.y = Math.sin(elapsed * 1.1) * .12;
+    // The brackets separate as the visitor leaves the opening and enters the projects.
+    const departure = Math.max(0, Math.min(1, scrollY / Math.max(1, innerHeight * .8)));
+    leftBracket.position.x = -1.35 - departure * .8;
+    rightBracket.position.x = 1.35 + departure * .8;
+    slash.rotation.z = departure * .45;
+    sculpture.position.z = departure * .4;
     renderer.render(scene, camera);
   }
   function sync() {
